@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Overview — AI-Powered Productivity with Google Gemini & Agentic AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+    <style>
+        /* === RESET & BASE === */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #f7f5f0;
+            --card: #ffffff;
+            --ink: #1a1a1a;
+            --ink-soft: #4a4a4a;
+            --ink-muted: #8a8a8a;
+            --accent: #1a73e8;
+            --accent-light: #e8f0fe;
+            --google-blue: #4285f4;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc04;
+            --google-green: #34a853;
+            --divider: #e0ddd6;
+            --tag-bg: #f0eeea;
+        }
+
+        @media print {
+            :root { --bg: #ffffff; }
+            body { padding: 0; }
+            .page { box-shadow: none; border: none; }
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: clamp(0.5rem, 2vw, 2rem);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === PAGE CONTAINER — A4 proportions === */
+        .page {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card);
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+            overflow: hidden;
+        }
+
+        /* === HEADER BAND === */
+        .header {
+            background: var(--ink);
+            color: #fff;
+            padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2.5rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 240px; height: 240px;
+            background: radial-gradient(circle, rgba(66,133,244,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -40px; left: 60%;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle, rgba(251,188,4,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-label {
+            font-size: clamp(0.6rem, 1vw, 0.7rem);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.35rem;
+        }
+
+        .header-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+            line-height: 1.15;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title em {
+            font-style: italic;
+            color: var(--google-blue);
+        }
+
+        .header-meta {
+            display: flex;
+            gap: clamp(1rem, 3vw, 2rem);
+            flex-wrap: wrap;
+            margin-top: clamp(0.6rem, 1.5vw, 1rem);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-meta-item {
+            font-size: clamp(0.65rem, 1vw, 0.78rem);
+            color: rgba(255,255,255,0.65);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .header-meta-item strong {
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+        }
+
+        .google-dots {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .google-dots span {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .google-dots span:nth-child(1) { background: var(--google-blue); }
+        .google-dots span:nth-child(2) { background: var(--google-red); }
+        .google-dots span:nth-child(3) { background: var(--google-yellow); }
+        .google-dots span:nth-child(4) { background: var(--google-green); }
+
+        /* === BODY CONTENT === */
+        .content {
+            padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1.25rem, 3vw, 2.5rem);
+        }
+
+        /* === OVERVIEW TEXT === */
+        .overview {
+            font-size: clamp(0.72rem, 1.1vw, 0.82rem);
+            color: var(--ink-soft);
+            line-height: 1.55;
+            margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
+            max-width: 680px;
+        }
+
+        /* === TIMELINE === */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .time-block {
+            display: grid;
+            grid-template-columns: clamp(72px, 10vw, 90px) 1fr;
+            gap: 0;
+            border-top: 1px solid var(--divider);
+        }
+
+        .time-block:last-child {
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .time-block--break {
+            background: var(--tag-bg);
+        }
+
+        .time-col {
+            padding: clamp(0.5rem, 1vw, 0.65rem) clamp(0.5rem, 1vw, 0.75rem);
+            border-right: 2px solid var(--divider);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .time-block--morning .time-col { border-right-color: var(--google-blue); }
+        .time-block--mid .time-col { border-right-color: var(--google-green); }
+        .time-block--afternoon .time-col { border-right-color: var(--google-yellow); }
+        .time-block--lab .time-col { border-right-color: var(--google-red); }
+
+        .time-text {
+            font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+            font-weight: 600;
+            color: var(--ink);
+            white-space: nowrap;
+        }
+
+        .time-dur {
+            font-size: clamp(0.55rem, 0.8vw, 0.62rem);
+            color: var(--ink-muted);
+            margin-top: 1px;
+        }
+
+        .session-col {
+            padding: clamp(0.5rem, 1vw, 0.65rem) clamp(0.6rem, 1.2vw, 1rem);
+        }
+
+        .session-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: clamp(0.15rem, 0.5vw, 0.3rem);
+        }
+
+        .session-num {
+            font-size: clamp(0.5rem, 0.7vw, 0.58rem);
+            font-weight: 600;
+            color: #fff;
+            background: var(--ink);
+            border-radius: 2px;
+            padding: 1px 5px;
+            letter-spacing: 0.02em;
+            flex-shrink: 0;
+        }
+
+        .time-block--morning .session-num { background: var(--google-blue); }
+        .time-block--mid .session-num { background: var(--google-green); }
+        .time-block--afternoon .session-num { background: var(--google-yellow); color: var(--ink); }
+        .time-block--lab .session-num { background: var(--google-red); }
+
+        .session-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(0.78rem, 1.2vw, 0.95rem);
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .session-desc {
+            font-size: clamp(0.6rem, 0.9vw, 0.7rem);
+            color: var(--ink-soft);
+            line-height: 1.45;
+        }
+
+        .session-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: clamp(0.2rem, 0.5vw, 0.3rem);
+        }
+
+        .tag {
+            font-size: clamp(0.5rem, 0.7vw, 0.58rem);
+            padding: 1px 6px;
+            border-radius: 2px;
+            background: var(--tag-bg);
+            color: var(--ink-soft);
+            white-space: nowrap;
+        }
+
+        .tag--hands-on {
+            background: var(--accent-light);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .tag--lab {
+            background: #fce8e6;
+            color: var(--google-red);
+            font-weight: 500;
+        }
+
+        .tag--demo {
+            background: #e6f4ea;
+            color: var(--google-green);
+            font-weight: 500;
+        }
+
+        /* Break rows */
+        .break-text {
+            font-size: clamp(0.62rem, 0.9vw, 0.72rem);
+            color: var(--ink-muted);
+            font-style: italic;
+            padding: clamp(0.35rem, 0.8vw, 0.5rem) clamp(0.6rem, 1.2vw, 1rem);
+            display: flex;
+            align-items: center;
+        }
+
+        /* === FOOTER === */
+        .footer {
+            padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1.25rem, 3vw, 2.5rem);
+            border-top: 1px solid var(--divider);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .footer-section h4 {
+            font-size: clamp(0.58rem, 0.85vw, 0.68rem);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink-muted);
+            margin-bottom: clamp(0.25rem, 0.5vw, 0.4rem);
+        }
+
+        .footer-section p,
+        .footer-section li {
+            font-size: clamp(0.58rem, 0.85vw, 0.68rem);
+            color: var(--ink-soft);
+            line-height: 1.5;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section li::before {
+            content: '—';
+            color: var(--ink-muted);
+            margin-right: 0.3rem;
+        }
+
+        .footer-bar {
+            background: var(--tag-bg);
+            padding: clamp(0.4rem, 1vw, 0.6rem) clamp(1.25rem, 3vw, 2.5rem);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bar-text {
+            font-size: clamp(0.55rem, 0.8vw, 0.62rem);
+            color: var(--ink-muted);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 520px) {
+            .header-meta { flex-direction: column; gap: 0.3rem; }
+            .footer { grid-template-columns: 1fr; gap: 0.75rem; }
+            .time-block { grid-template-columns: 64px 1fr; }
+        }
+
+        @media print {
+            body { padding: 0; background: #fff; }
+            .page { max-width: none; box-shadow: none; }
+            .tag--hands-on, .tag--lab, .tag--demo { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .session-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .time-col { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- === HEADER === -->
+        <header class="header">
+            <div class="header-top">
+                <div>
+                    <div class="header-label">One-Day Workshop</div>
+                    <h1 class="header-title">AI-Powered Productivity with<br>Google <em>Gemini</em> & Agentic AI</h1>
+                </div>
+                <div class="google-dots">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="header-meta">
+                <div class="header-meta-item"><strong>Audience</strong> SP School of Mathematical Sciences and Analytics</div>
+                <div class="header-meta-item"><strong>Level</strong> Novice to Intermediate</div>
+                <div class="header-meta-item"><strong>Duration</strong> 9:00 AM – 4:45 PM</div>
+            </div>
+        </header>
+
+        <!-- === CONTENT === -->
+        <div class="content">
+            <p class="overview">
+                From using Gemini as a daily productivity tool to building your own AI agents — this workshop takes you on a hands-on journey through Google's AI ecosystem, with exercises designed for educators, analysts, and administrators.
+            </p>
+
+            <!-- === TIMELINE === -->
+            <div class="timeline">
+
+                <!-- Morning Block 1 -->
+                <div class="time-block time-block--morning">
+                    <div class="time-col">
+                        <span class="time-text">9:00 AM</span>
+                        <span class="time-dur">30 min</span>
+                    </div>
+                    <div class="session-col">
+                        <div class="session-header">
+                            <span class="session-num">01</span>
+                            <span class="session-title">Welcome & The Gemini Ecosystem</span>
+                        </div>
+                        <p class="session-desc">Overview of the Gemini ecosystem, the AI maturity spectrum from prompting to agents, and responsible AI in education.</p>
+                    </div>
+                </div>
+
+                <div class="time-block time-block--morning">
+                    <div class="time-col">
+                        <span class="time-text">9:30 AM</span>
+                        <span class="time-dur">45 min</span>
+                    </div>
+                    <div class="session-col">
+                        <div class="session-header">
+                            <span class="session-num">02</span>
+                            <span class="session-title">The Gemini App & Custom Gems</span>
+                        </div>
+                        <p class="session-desc">Deep Research, Canvas, and creating custom Gems with persona, task, and knowledge file instructions.</p>
+                        <div class="session-tags">
+                            <span class="tag tag--hands-on">Hands-on</span>
+                            <span class="tag">Gems</span>
+                            <span class="tag">Deep Research</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Break -->
+                <div class="time-block time-block--break">
+                    <div class="time-col">
+                        <span class="time-text">10:15 AM</span>
+                        <span class="time-dur">15 min</span>
+                    </div>
+                    <span class="break-text">Break</span>
+                </div>
+
+                <!-- Morning Block 2 -->
+                <div class="time-block time-block--mid">
+                    <div class="time-col">
+                        <span class="time-text">10:30 AM</span>
+                        <span class="time-dur">45 min</span>
+                    </div>
+                    <div class="session-col">
+                        <div class="session-header">
+                            <span class="session-num">03</span>
+                            <span class="session-title">Gemini in Google Sheets — Analytics Focus</span>
+                        </div>
+                        <p class="session-desc">Generate tables, formulas from natural language, data analysis with charts, and the =AI() function for classification.</p>
+                        <div class="session-tags">
+                            <span class="tag tag--hands-on">Hands-on</span>
+                            <span class="tag">Sheets</span>
+                            <span class="tag">=AI() function</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-block time-block--mid">
+                    <div class="time-col">
+                        <span class="time-text">11:15 AM</span>
+                        <span class="time-dur">30 min</span>
+                    </div>
+                    <div class="session-col">
+                        <div class="session-header">
+                            <span class="session-num">04</span>
+                            <span class="session-title">Gemini in Docs & Gmail</span>
+                        </div>
+                        <p class="session-desc">Generate lesson plans and worksheets, refine content for different audiences, and write and summarise emails with Gemini.</p>
+                        <div class="session-tags">
+                            <span class="tag tag--hands-on">Hands-on</span>
+                            <span class="tag">Docs</span>
+                            <span class="tag">Gmail</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-block time-block--mid">
+                    <div class="time-col">
+                        <span class="time-text">11:45 AM</span>
+                        <span class="time-dur">15 min</span>
+                    </div>
+                    <div class="session-col">
+                        <div class="session-header">
+                            <span class="session-num">05</span>
+                            <span class="session-title">NotebookLM for Research & Teaching</span>
+                        </div>
+                        <p class="session-desc">Create a knowledge hub from your own sources, query across documents, and generate audio overviews.</p>
+                        <div class="session-tags">
+                            <span class="tag tag--demo">Demo</span>
+                            <span class="tag">NotebookLM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lunch -->
+                <div class="time-block time-block--break">
+                    <div class="time-col">
+                        <span class="time-text">12:00 PM</span>
+                        <span class="time-dur">60 min</span>
+                    </div>
+                    <span class="break-text">Lunch</span>
+                </div>
+
+                <!-- Afternoon Block 1 -->
+                <div class="time-block time-block--afternoon">
+                    <div class="time-col">
+                        <span class="time-text">1:00 PM</span>
+                        <span class="time-dur">45 min</span>
+                    </div>
+                    <div class="session-col">
+                        <div class="session-header">
+                            <span class="session-num">06</span>
+                            <span class="session-title">Apps Script Generation with Gemini</span>
+                        </div>
+                        <p class="session-desc">Use Gemini to generate Google Apps Script for custom automation — auto-email grades, process form responses, create calendar events.</p>
+                        <div class="session-tags">
+                            <span class="tag tag--hands-on">Hands-on</span>
+                            <span class="tag">Apps Script</span>
+                            <span class="tag">Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-block time-block--afternoon">
+                    <div class="time-col">
+                        <span class="time-text">1:45 PM</span>
+                        <span class="time-dur">45 min</span>
+                    </div>
+                    <div class="session-col">
+                        <div class="session-header">
+                            <span class="session-num">07</span>
+                            <span class="session-title">Workspace Studio Agents</span>
+                        </div>
+                        <p class="session-desc">Build no-code AI agents in Google Workspace — configure instructions, connect data sources, add actions, and test a Student Query Agent.</p>
+                        <div class="session-tags">
+                            <span class="tag tag--hands-on">Hands-on</span>
+                            <span class="tag">Workspace Agents</span>
+                            <span class="tag">No-code</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Break -->
+                <div class="time-block time-block--break">
+                    <div class="time-col">
+                        <span class="time-text">2:30 PM</span>
+                        <span class="time-dur">15 min</span>
+                    </div>
+                    <span class="break-text">Break</span>
+                </div>
+
+                <!-- Afternoon Block 2 -->
+                <div class="time-block time-block--lab">
+                    <div class="time-col">
+                        <span class="time-text">2:45 PM</span>
+                        <span class="time-dur">30 min</span>
+                    </div>
+                    <div class="session-col">
+                        <div class="session-header">
+                            <span class="session-num">08</span>
+                            <span class="session-title">Google's Agentic Stack & Managing Context</span>
+                        </div>
+                        <p class="session-desc">The ADK, Vertex AI Agent Engine, sessions, memory, MCP and A2A protocols — conceptual preparation for the hands-on lab.</p>
+                        <div class="session-tags">
+                            <span class="tag">ADK</span>
+                            <span class="tag">MCP</span>
+                            <span class="tag">A2A</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-block time-block--lab">
+                    <div class="time-col">
+                        <span class="time-text">3:15 PM</span>
+                        <span class="time-dur">60 min</span>
+                    </div>
+                    <div class="session-col">
+                        <div class="session-header">
+                            <span class="session-num">09</span>
+                            <span class="session-title">Lab — Building an ADK Agent with Session & Memory</span>
+                        </div>
+                        <p class="session-desc">Guided hands-on lab on Google Cloud Skills Boost. Build an agent that manages conversational context using session and memory services.</p>
+                        <div class="session-tags">
+                            <span class="tag tag--lab">GCP Lab</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">Agent Development Kit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-block time-block--lab">
+                    <div class="time-col">
+                        <span class="time-text">4:15 PM</span>
+                        <span class="time-dur">15 min</span>
+                    </div>
+                    <div class="session-col">
+                        <div class="session-header">
+                            <span class="session-num">10</span>
+                            <span class="session-title">Wrap-Up & Action Planning</span>
+                        </div>
+                        <p class="session-desc">Recap, quick wins for Monday, personal action planning, resources for self-study, and Q&A.</p>
+                    </div>
+                </div>
+
+            </div><!-- /timeline -->
+        </div><!-- /content -->
+
+        <!-- === FOOTER === -->
+        <div class="footer">
+            <div class="footer-section">
+                <h4>What to Prepare</h4>
+                <ul>
+                    <li>Google Workspace account (provided)</li>
+                    <li>Google Cloud Skills Boost account</li>
+                    <li>Laptop with Chrome browser</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>What You'll Walk Away With</h4>
+                <ul>
+                    <li>Custom Gems for your daily workflow</li>
+                    <li>AI-generated Apps Script automations</li>
+                    <li>A working Workspace Studio Agent</li>
+                    <li>Hands-on experience building an ADK agent</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bar">
+            <span class="footer-bar-text">Singapore Polytechnic — School of Mathematical Sciences and Analytics</span>
+            <div class="google-dots">
+                <span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+    </div><!-- /page -->
+</body>
+</html>

@@ -1,0 +1,11 @@
+Module Code,Module Name,Event Type,Date,Time,Venue,Remarks
+ST0001,Statistics I,Tutorial,2026-04-13,10:00 AM,T1601,Tutorial Group A
+ST0001,Statistics I,Tutorial,2026-04-13,2:00 PM,T1601,Tutorial Group B
+ST0001,Statistics I,Lecture,2026-04-14,9:00 AM,LT3A,Week 3 - Probability
+ST0001,Statistics I,CA Test 2,2026-04-20,10:00 AM,T1601,Covers Weeks 1-3
+ST0001,Statistics I,Lecture,2026-04-21,9:00 AM,LT3A,Week 4 - Distributions
+ST0001,Statistics I,Consultation,2026-04-22,3:00 PM,Staff Room 5,By appointment
+ST0001,Statistics I,Tutorial,2026-04-27,10:00 AM,T1601,Tutorial Group A
+ST0001,Statistics I,Tutorial,2026-04-27,2:00 PM,T1601,Tutorial Group B
+ST0001,Statistics I,Lecture,2026-04-28,9:00 AM,LT3A,Week 5 - Hypothesis Testing
+ST0001,Statistics I,Exam,2026-05-15,9:00 AM,Sports Hall,Final Examination
