@@ -1,4 +1,4 @@
-# AI-Powered Productivity with Google Gemini & Agentic AI
+# AI-Powered Productivity with Google Gemini & Application Development with LLMs
 
 **One-Day Course for Singapore Polytechnic, School of Mathematical Sciences and Analytics**
 
@@ -9,7 +9,7 @@
 
 ## Course Overview
 
-This course bridges **everyday AI productivity** (Gemini in Workspace) with **agentic AI concepts** (building intelligent agents on Google Cloud), tailored for educators and staff in a mathematics/analytics context. Participants leave with hands-on experience using Gemini across Workspace apps, creating custom Gems, building no-code agents in Workspace Studio, generating Apps Script automations with AI, and hands-on lab experience building an ADK agent with session and memory services on Google Cloud.
+This course bridges **everyday AI productivity** (Gemini in Workspace) with **LLM application development on Google Cloud** (Vertex AI Studio, prompt engineering, and the Gemini API), tailored for educators and staff in a mathematics/analytics context. Participants leave with hands-on experience using Gemini across Workspace apps, creating custom Gems, building no-code agents in Workspace Studio, generating Apps Script automations with AI, and hands-on lab experience with Vertex AI Studio and the Gemini API on Google Cloud.
 
 ---
 
@@ -23,11 +23,11 @@ This course bridges **everyday AI productivity** (Gemini in Workspace) with **ag
 |-------|---------|
 | What is Generative AI (quick recap) | Brief since audience has basic GenAI knowledge |
 | The Google Gemini ecosystem overview | Gemini app, Workspace with Gemini, NotebookLM, Google Vids — where each fits |
-| From assistants to agents | The AI maturity spectrum: prompting → Gems → Workspace agents → coded agents on GCP |
+| From assistants to agents | The AI maturity spectrum: prompting → Gems → Workspace agents → LLM-powered apps on GCP |
 | Responsible AI | Google's AI principles, hallucination awareness, verification practices |
 | Using Gemini responsibly in education | Academic integrity, data privacy for student data |
 
-**Framing for audience:** Position the day as a journey from "AI as a helper" to "AI as a worker" — relevant for automating administrative tasks, developing teaching materials, and supporting analytics workflows.
+**Framing for audience:** Position the day as a journey from "AI as a helper" to "AI as a development platform" — relevant for automating administrative tasks, developing teaching materials, and supporting analytics workflows.
 
 #### Session 2: The Gemini App & Custom Gems (45 min)
 
@@ -155,54 +155,71 @@ Act as a Google Apps Script developer. Write a script that:
 
 ---
 
-### Afternoon Block 2 — Building Agents on Google Cloud (3:00 PM – 4:45 PM)
+### Afternoon Block 2 — LLM Development on Google Cloud (3:00 PM – 4:45 PM)
 
-#### Session 8: Google's Agentic Stack & Managing Context (30 min)
-*Lecture — sets up concepts for the hands-on lab*
+#### Session 8: Vertex AI Studio & Prompt Engineering (20 min)
+*Lecture — sets up concepts for the two hands-on labs*
 
 | Topic | Details |
 |-------|---------|
-| The AI agent spectrum | From Gems → Workspace Agents → ADK-built agents → Production agents |
-| Google's agentic stack | Gemini models, Agent Development Kit (ADK), Vertex AI Agent Engine |
-| Key concepts: Tools | Agents calling APIs and external systems to take actions |
-| Key concepts: Sessions & State | How agents maintain conversation history and share data across turns |
-| Key concepts: Memory | How agents remember information across separate conversations |
-| Key concepts: Examples | Few-shot learning — teaching agents by showing them input/output pairs |
-| MCP & A2A (brief) | Model Context Protocol (tools as microservices) and Agent2Agent (agents as microservices) |
-| Where no-code ends and code begins | When to use Workspace Studio vs. when you'd need ADK/code |
+| What is Vertex AI | Google Cloud's ML platform — Model Garden, Vertex AI Studio, model tuning |
+| Vertex AI Studio overview | Low-code prompt playground for Gemini models — freeform, chat, and task modes |
+| Choosing the right model | Flash Lite for low latency, Flash for general use, Pro for complex reasoning |
+| Prompt engineering techniques | Zero-shot, one-shot, few-shot prompting — when to use each |
+| Chain-of-thought prompting | Getting better reasoning by asking the model to "think step by step" |
+| Grounding concepts | System prompts, document grounding, search grounding — giving the model context |
+| From playground to code | The "Get Code" button in Vertex AI Studio — Python, Node.js, cURL |
 
-**Key message:** Sessions, memory, and examples are what turn a stateless LLM into a useful agent. The upcoming lab lets you see this first-hand.
+**Key message:** "This morning you used Gemini through Workspace apps. Now we go behind the scenes — Vertex AI Studio is where you test and refine prompts before building them into applications. The two labs let you experience both the no-code playground and the Python API."
 
-#### Session 9: Hands-On Lab — Building an ADK Agent with Session and Memory Services (60 min)
-*Google Cloud Skills Boost lab (HotLab — 180-min persistence)*
+#### Session 9: Lab 1 — Getting Started with Vertex AI Studio UI (30 min)
+*Google Cloud Skills Boost lab*
 
 | Phase | Details |
 |-------|---------|
 | Lab activation | Participants activate lab via Google Cloud Skills Boost; receive temporary GCP project |
-| Guided walkthrough | Instructor walks through the lab steps on-screen; participants follow along |
-| Session services | Implement and test InMemorySessionService, then switch to a persistent service |
-| Memory services | Enable memory so the agent remembers information across separate conversations |
-| Testing context management | Verify the agent recalls prior preferences and context |
-| Wrap-up & debrief | Discuss what they built and how it connects to the day's themes |
+| Exploring Vertex AI Studio | Navigate the console UI — model selection, prompt input, parameter tuning |
+| Text prompts | Test summarisation, classification, sentiment analysis, and ideation prompts |
+| Multimodal prompts | Experiment with image + text inputs |
+| Get Code | Export a working prompt as Python/cURL code for use in applications |
+| Prompt Gallery | Browse sample use cases and pre-built prompts for inspiration |
 
 **Instructor guidance for mixed audience:**
-- *Novice participants:* Follow along step-by-step; focus on understanding what the code does, not writing it from scratch. The lab provides all code — participants copy, paste, and run.
-- *Intermediate participants:* Encouraged to experiment — try modifying agent instructions, adding state variables, or testing edge cases in the memory service.
-- *All participants:* The lab environment is fully provisioned (no local setup needed). If participants get stuck, they can pair up or follow the instructor's screen.
+- *Novice participants:* Focus on the freeform prompt interface — this is the same Gemini they used this morning, but with more control over model selection and parameters.
+- *Intermediate participants:* Experiment with system instructions, temperature settings, and the "Get Code" button to see how prompts translate to API calls.
+- *All participants:* No coding required for this lab. The environment is fully provisioned.
 
-**Connection to the morning:** "This morning you built Gems (custom prompts) and Workspace Agents (no-code). This lab shows you what's happening under the hood — how agents manage the context that makes them feel intelligent."
+#### Session 10: Lab 2 — Getting Started with Gen AI Library + Vertex AI Gemini API (45 min)
+*Google Cloud Skills Boost lab*
+
+| Phase | Details |
+|-------|---------|
+| Lab activation | Participants activate lab; uses Python notebooks in the GCP environment |
+| The Gen AI library | Introduction to the `google.genai` Python client — connecting to Gemini models |
+| Basic text generation | Send prompts programmatically and receive responses |
+| System instructions | Set model behaviour and persona via the API |
+| Chat with memory | Build a multi-turn conversation that maintains context |
+| Grounding techniques | Document grounding and search grounding via the API |
+| Token counting | Understand context window usage and cost implications |
+
+**Instructor guidance for mixed audience:**
+- *Novice participants:* Follow along step-by-step in the provided notebook. Focus on understanding the pattern: connect → prompt → receive response. The code is pre-written — participants run cells and observe outputs.
+- *Intermediate participants:* Encouraged to modify prompts, experiment with different models, try their own grounding documents, and explore the embeddings section.
+- *All participants:* The lab runs in a cloud notebook environment — no local Python setup needed. If participants get stuck, they can pair up or follow the instructor's screen.
+
+**Connection to the morning:** "This morning you prompted Gemini through a chat interface. This afternoon you're prompting the same models through code — the same system instructions and grounding concepts apply, but now you can build these into your own applications and automations."
 
 ---
 
-#### Session 10: Wrap-Up & Action Planning (15 min)
+#### Session 11: Wrap-Up & Action Planning (15 min)
 
 | Topic | Details |
 |-------|---------|
-| Recap of the day | Gemini productivity → Gems → Apps Script → Workspace Agents → ADK Lab |
-| The spectrum you experienced | Using AI → Customising AI → Automating with AI → Building AI agents |
+| Recap of the day | Gemini productivity → Gems → Apps Script → Workspace Agents → Vertex AI Studio → Gemini API |
+| The spectrum you experienced | Using AI → Customising AI → Automating with AI → Developing with AI on GCP |
 | Quick wins to implement Monday | 3 things each participant can do immediately |
-| Action planning | Each participant writes down 1 automation or agent they want to build for their role |
-| Resources & next steps | Google Workspace Learning Path, ADK documentation, Apps Script tutorials, remaining 3 labs |
+| Action planning | Each participant writes down 1 automation or application they want to build for their role |
+| Resources & next steps | Google Workspace Learning Path, Vertex AI documentation, Apps Script tutorials, remaining labs |
 | Q&A | Open floor |
 
 ---
@@ -212,15 +229,16 @@ Act as a Google Apps Script developer. Write a script that:
 | Design Decision | Rationale |
 |----------------|-----------|
 | Sheets before Docs/Gmail | Analytics audience — lead with their strength area |
-| NotebookLM trimmed to demo only | Freed 15 min for lab; participants can explore independently |
-| Gems trimmed from 60→45 min | Deep Research and Canvas covered together; freed 15 min for lab |
+| NotebookLM trimmed to demo only | Freed 15 min for labs; participants can explore independently |
+| Gems trimmed from 60→45 min | Deep Research and Canvas covered together; freed 15 min for labs |
 | Apps Script via Gemini generation | Removes coding barrier; participants prompt for code rather than write it |
 | Workspace Studio Agents as a separate block | Key bridge between "using AI" and "building with AI" |
-| Lab 1 chosen over Labs 2–4 | Most self-contained; no prerequisite labs; session/memory concepts are universally accessible |
-| Lecture before lab (Session 8→9) | Conceptual framing makes the lab more meaningful; participants understand *why* before *how* |
+| Two labs instead of one | Vertex AI Studio UI (no-code) followed by Gemini API (Python) creates a natural progression from playground to code |
+| Vertex AI Studio lab first | No-code entry point builds confidence before the Python-based lab |
+| Lecture before labs (Session 8→9→10) | Conceptual framing of Vertex AI and prompt engineering makes both labs more meaningful |
 | Copilot Studio bridge points | Acknowledges advanced learners' prior experience and helps map concepts across ecosystems |
 | Education-specific scenarios throughout | Grade tracking, student queries, teaching material generation — immediately relevant |
-| Progressive complexity | Morning = use AI → Afternoon = build with AI → Late afternoon = build agents on GCP |
+| Progressive complexity | Morning = use AI → Afternoon = automate with AI → Late afternoon = develop with AI on GCP |
 
 ---
 
@@ -228,7 +246,7 @@ Act as a Google Apps Script developer. Write a script that:
 
 - Google Workspace accounts with Gemini enabled (Business Standard or higher)
 - Access to Workspace Studio (admin must enable)
-- Google Cloud Skills Boost accounts (for Lab 1 activation)
+- Google Cloud Skills Boost accounts (for lab activation)
 - Sample datasets: student grade data, module schedules, FAQ documents
 - Pre-prepared Google Sheets and Forms for exercises
 - Slide deck with screenshots/demos for Apps Script and Workspace Studio walkthroughs
@@ -243,29 +261,52 @@ Act as a Google Apps Script developer. Write a script that:
 | Sheets | Generate tables, simple formulas | Use =AI() function, complex analysis |
 | Apps Script | Paste and run pre-generated script | Modify generated scripts, add triggers |
 | Workspace Agents | Build from template with guided steps | Configure custom actions and multi-source grounding |
-| ADK Lab | Follow along step-by-step, focus on concepts | Experiment with modifications, test edge cases |
-| Agentic concepts | Absorb the high-level story | Connect to Copilot Studio experience, discuss MCP/A2A implications |
+| Vertex AI Studio Lab | Explore freeform prompts, try Prompt Gallery | Experiment with system instructions, parameters, Get Code |
+| Gemini API Lab | Run pre-written notebook cells, observe outputs | Modify code, try different models, explore embeddings |
 
 ---
 
 ## Lab Details
 
-### Lab 1: Building an ADK Agent with Session and Memory Services
+### Lab 1: Getting Started with the Vertex AI Studio User Interface
 
-- **Source:** Build Production-Ready Agents on Google Cloud (Module 2 lab)
-- **Platform:** Google Cloud Skills Boost (HotLab)
-- **Duration:** 60 min guided (lab environment persists for 180 min)
-- **Prerequisites:** None — lab provides all code and a fully provisioned GCP environment
+- **Source:** Application Development with LLMs on Google Cloud (Module 2 lab)
+- **Platform:** Google Cloud Skills Boost
+- **Duration:** 30 min guided
+- **Prerequisites:** None — no coding required; fully provisioned GCP environment
 - **What participants will do:**
-  - Implement and test tools for managing conversational context
-  - Work with multiple SessionService implementations (InMemory → persistent)
-  - Enable MemoryService so the agent remembers across conversations
-  - Optionally explore the Vertex AI Example Store service
+  - Navigate Vertex AI Studio in the Google Cloud console
+  - Test text prompts for summarisation, classification, sentiment analysis, and ideation
+  - Experiment with multimodal inputs (text + image)
+  - Explore model selection and parameter tuning (temperature, top-k, top-p)
+  - Use the "Get Code" button to export prompts as Python/cURL
+  - Browse the Prompt Gallery for sample use cases
 - **What participants will learn:**
-  - Why LLMs need external state management to be useful agents
-  - How sessions, state, and memory work together
-  - The difference between development (in-memory) and production (cloud-managed) services
-- **Remaining labs for self-study:** Participants are encouraged to complete the remaining 3 labs independently:
-  1. Use Model Context Protocol (MCP) Tools with ADK Agents
-  2. Connect to Remote Agents with ADK and the Agent2Agent (A2A) SDK
-  3. Implementing End-User Interfaces for Agents on Google Cloud
+  - How Vertex AI Studio provides a controlled environment for prompt testing
+  - The relationship between the chat-based Gemini and the API-driven Vertex AI
+  - How prompts become code — the bridge from playground to application
+
+### Lab 2: Getting Started with Gen AI Library + Vertex AI Gemini API
+
+- **Source:** Application Development with LLMs on Google Cloud (Module 3 lab)
+- **Platform:** Google Cloud Skills Boost
+- **Duration:** 45 min guided
+- **Prerequisites:** Basic comfort reading Python (code is pre-written in notebooks)
+- **What participants will do:**
+  - Use the `google.genai` Python library to connect to Gemini models
+  - Send text prompts and receive responses programmatically
+  - Set system instructions to control model behaviour
+  - Build a multi-turn chat conversation with memory
+  - Apply document grounding and search grounding via the API
+  - Count tokens to understand context window usage
+- **What participants will learn:**
+  - How to interact with Gemini models through code
+  - The role of system instructions, grounding, and chat memory in LLM applications
+  - How the concepts from the morning (prompting, grounding, memory) translate to API calls
+
+### Remaining Labs for Self-Study
+
+Participants are encouraged to complete the remaining 2 labs independently:
+
+1. **Advanced Prompt Architectures** (60 min) — Chain-of-thought, meta-prompting, multistep prompts, RAG, and ReAct patterns
+2. **Implementing RAG Using LangChain** (30 min) — Build a retrieval-augmented chatbot with LangChain, vector stores, and the Gemini API
