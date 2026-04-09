@@ -1,0 +1,31 @@
+Student ID,Student Name,Gender,Year of Study,Diploma Programme,Module Code,Module Name,Tutorial Group,CA1 Score,CA2 Score,Tutorial Participation,CA1 Attendance,CA2 Attendance,Tutorial Attendance Rate,Final Exam Score,Final Grade,GPA (Cumulative),Status,Remarks
+2401001,Aisha Bte Rahman,F,Year 1,Data Science,ST0001,Statistics I,A,68,72,8,Present,Present,92%,,,,Active,
+2401002,Bryan Tan Wei Ming,M,Year 1,Applied Mathematics,ST0001,Statistics I,A,85,88,10,Present,Present,100%,,,,Active,Dean's List candidate
+2401003,Chen Mei Ling,F,Year 1,Data Science,ST0001,Statistics I,A,42,38,5,Present,Present,67%,,,,Active,Referred to Math Learning Centre
+2401004,David Lim Jian Wei,M,Year 1,Financial Technology,ST0001,Statistics I,A,60,58,7,Present,Present,83%,,,,Active,
+2401005,Fatimah Zahra,F,Year 1,Business Analytics,ST0001,Statistics I,A,92,89,10,Present,Present,100%,,,,Active,Dean's List candidate
+2401006,Goh Jun Hao,M,Year 1,Applied Mathematics,ST0001,Statistics I,A,30,25,3,Present,Absent (MC),50%,,,,Active,At risk — consultation scheduled
+2401007,Hannah Lee Xin Yi,F,Year 1,Data Science,ST0001,Statistics I,A,78,80,9,Present,Present,92%,,,,Active,
+2401008,Ibrahim Bin Hassan,M,Year 1,Financial Technology,ST0001,Statistics I,B,55,48,6,Present,Present,75%,,,,Active,
+2401009,Jessica Ng Hui Min,F,Year 1,Business Analytics,ST0001,Statistics I,B,70,65,8,Present,Present,83%,,,,Active,
+2401010,Kumar Raj,M,Year 1,Data Science,ST0001,Statistics I,B,38,32,4,Absent (MC),Present,58%,,,,Active,At risk — referred to SSC
+2401011,Lim Siew Kuan,F,Year 1,Applied Mathematics,ST0001,Statistics I,B,88,84,9,Present,Present,100%,,,,Active,
+2401012,Muhammad Faiz,M,Year 1,Financial Technology,ST0001,Statistics I,B,48,45,6,Present,Present,75%,,,,Active,
+2401013,Naomi Tay Xin Ying,F,Year 1,Business Analytics,ST0001,Statistics I,B,75,72,8,Present,Present,92%,,,,Active,
+2401014,Ong Kah Heng,M,Year 1,Data Science,ST0001,Statistics I,A,62,66,7,Present,Present,83%,,,,Active,
+2401015,Priya Devi,F,Year 1,Applied Mathematics,ST0001,Statistics I,A,83,79,9,Present,Present,92%,,,,Active,
+2401016,Quek Zhi Hao,M,Year 1,Financial Technology,ST0001,Statistics I,B,44,40,5,Absent (LOA),Present,67%,,,,Active,LOA approved (family)
+2401017,Rania Bte Osman,F,Year 1,Data Science,ST0001,Statistics I,B,71,68,8,Present,Present,83%,,,,Active,
+2401018,Samuel Koh Wei Jie,M,Year 1,Business Analytics,ST0001,Statistics I,A,56,52,6,Present,Present,75%,,,,Active,
+2401019,Tan Li Ying,F,Year 1,Applied Mathematics,ST0001,Statistics I,A,90,93,10,Present,Present,100%,,,,Active,Dean's List candidate
+2401020,Umar Bin Ismail,M,Year 1,Financial Technology,ST0001,Statistics I,B,35,29,3,Present,Absent (no show),42%,,,,Active,At risk — attendance warning issued
+2401021,Vanessa Ho Mei Qi,F,Year 2,Data Science,ST0001,Statistics I,A,65,60,7,Present,Present,83%,,,,Active,Repeat student
+2401022,Wong Jia Le,M,Year 1,Business Analytics,ST0001,Statistics I,B,77,81,9,Present,Present,92%,,,,Active,
+2401023,Xavier Yeo Zhi Wei,M,Year 1,Data Science,ST0001,Statistics I,A,50,47,5,Present,Present,67%,,,,Active,Borderline — additional support recommended
+2401024,Yasmin Bte Ahmad,F,Year 1,Applied Mathematics,ST0001,Statistics I,B,86,82,10,Present,Present,100%,,,,Active,
+2401025,Zhang Wei,M,Year 1,Financial Technology,ST0001,Statistics I,A,58,54,6,Present,Present,75%,,,,Active,
+2401026,Amanda Chong Hui Wen,F,Year 1,Business Analytics,ST0001,Statistics I,B,73,69,8,Present,Present,92%,,,,Active,
+2401027,Benjamin Soh Kian Beng,M,Year 1,Data Science,ST0001,Statistics I,A,40,36,4,Present,Present,58%,,,,Active,At risk — parent contacted
+2401028,Christina Wee Li Fang,F,Year 1,Applied Mathematics,ST0001,Statistics I,B,82,78,9,Present,Present,92%,,,,Active,
+2401029,Daniel Ang Zhi Xuan,M,Year 1,Financial Technology,ST0001,Statistics I,A,67,63,7,Present,Present,83%,,,,Active,
+2401030,Elaine Teo Shu Min,F,Year 1,Business Analytics,ST0001,Statistics I,B,52,48,6,Present,Present,75%,,,,Active,

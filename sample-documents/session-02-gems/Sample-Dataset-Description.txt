@@ -1,0 +1,37 @@
+Dataset: SP Student Wellness Survey 2025
+
+This dataset was collected by the School of Mathematical Sciences and Analytics as part of a cross-school student wellness research initiative conducted in October 2025.
+
+The survey was administered via Google Forms to all Year 1 and Year 2 students enrolled in diploma programmes under SMSA. Participation was voluntary and anonymous. 847 valid responses were received out of 1,203 students contacted (70.4% response rate).
+
+The dataset contains the following fields:
+
+response_id - auto-generated unique ID for each response, format RES-0001 to RES-0847
+timestamp - date and time of form submission, format YYYY-MM-DD HH:MM:SS
+year_of_study - either "Year 1" or "Year 2"
+diploma_programme - one of: Data Science, Applied Mathematics, Business Analytics, Financial Technology
+gender - M, F, or Prefer not to say
+age - integer, ranges from 17 to 28
+accommodation_type - "HDB", "Condo", "Landed", "Hostel", or "Other"
+daily_commute_minutes - integer, self-reported one-way commute time to campus in minutes
+sleep_hours_weekday - float, average hours of sleep on weekdays
+sleep_hours_weekend - float, average hours of sleep on weekends
+exercise_frequency - "Never", "1-2 times/week", "3-4 times/week", "5+ times/week"
+stress_level - Likert scale 1-10 where 1 = no stress and 10 = extremely stressed
+academic_satisfaction - Likert scale 1-5 where 1 = very dissatisfied and 5 = very satisfied
+social_belonging - Likert scale 1-5 where 1 = strongly disagree ("I feel I belong at SP") and 5 = strongly agree
+part_time_work - "Yes" or "No"
+work_hours_per_week - integer, 0 if not working. ranges from 0 to 35.
+financial_stress - "Not at all", "Slightly", "Moderately", "Very", "Extremely"
+mental_health_support_aware - "Yes" or "No" (whether they know about SP counselling services)
+would_use_mental_health_support - "Yes", "No", "Maybe"
+gpa_range - self-reported, categories: "Below 2.0", "2.0-2.49", "2.5-2.99", "3.0-3.49", "3.5-4.0"
+preferred_study_method - "Alone", "Study group", "Online resources", "Tutoring/consultation"
+screen_time_hours - float, average daily non-academic screen time in hours
+
+Notes:
+- 23 responses had missing values in sleep_hours_weekday and were imputed with the median value (6.5 hours)
+- The dataset has been anonymised. No personally identifiable information is included.
+- The stress_level and academic_satisfaction fields showed moderate negative correlation (r = -0.42) in preliminary analysis
+- Commute times ranged from 5 minutes to 95 minutes, with a mean of 38 minutes and standard deviation of 18 minutes
+- The data is stored as a CSV file: sp_wellness_survey_2025.csv (file size: 312 KB)

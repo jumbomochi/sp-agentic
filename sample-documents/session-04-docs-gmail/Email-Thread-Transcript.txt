@@ -1,0 +1,113 @@
+Subject: Re: ST0001 CA Test 2 — Room change and logistics
+Thread: 7 messages
+
+---
+
+From: Dr. Tan Wei Lin <tan_wei_lin@sp.edu.sg>
+To: SMSA Lecturers <smsa-lecturers@sp.edu.sg>
+Date: Mon, 14 Apr 2026 09:12 AM
+
+Hi all,
+
+Quick update — Estates has informed me that T1601 will be unavailable on 20 April due to maintenance work on the air-conditioning system. We need to find an alternative venue for the ST0001 CA Test 2.
+
+The test is scheduled for Monday 20 April, 10:00 AM. We need a room that seats at least 35 students with individual desks (not shared tables, since it's an assessment).
+
+Can anyone check if their tutorial rooms are free at that time?
+
+Thanks,
+Wei Lin
+
+---
+
+From: Jason Lee <jason_lee@sp.edu.sg>
+To: SMSA Lecturers <smsa-lecturers@sp.edu.sg>
+Date: Mon, 14 Apr 2026 09:45 AM
+
+Hi Wei Lin,
+
+I just checked the booking system. T1203 is free on Monday morning but it only seats 28. Would that work if we split into two sittings? Or is that too complicated for a 45-min test?
+
+LT3A is also free but it's a lecture theatre — not ideal for a CA test because of the shared desks.
+
+Jason
+
+---
+
+From: Siti Nurhaliza <siti_nurhaliza@sp.edu.sg>
+To: SMSA Lecturers <smsa-lecturers@sp.edu.sg>
+Date: Mon, 14 Apr 2026 10:03 AM
+
+Jason, splitting into two sittings is risky — students from the first sitting could share questions with the second group. We had that issue with MA0003 last semester.
+
+What about the IT labs? T1508 has individual workstations and seats 40. I know it's a computer lab, but we could lock the screens and just use it as a test venue.
+
+Siti
+
+---
+
+From: Mark Goh <mark_goh@sp.edu.sg>
+To: SMSA Lecturers <smsa-lecturers@sp.edu.sg>
+Date: Mon, 14 Apr 2026 10:31 AM
+
+I actually just spoke to the Estates team about something else and they mentioned T1601 might be ready by Friday. The AC repair was originally scheduled for the whole week but the contractor confirmed it's a minor compressor replacement. They're expecting it done by Thursday evening.
+
+Might be worth waiting until Wednesday to confirm before we scramble for alternative rooms?
+
+Also, Siti — T1508 could work but we'd need IT to disable internet access during the test. Students could look up answers on their phones via the lab computers otherwise. That happened in another school last year apparently.
+
+Mark
+
+---
+
+From: Priya Nair <priya_nair@sp.edu.sg>
+To: SMSA Lecturers <smsa-lecturers@sp.edu.sg>
+Date: Mon, 14 Apr 2026 11:15 AM
+
+I agree with Mark — let's not panic-book yet. But we should have a backup plan.
+
+I have T1402 booked for a tutorial on Monday 20 April at 2pm, but it's free in the morning. It seats 36 with individual desks. Happy to offer it as the backup venue if T1601 isn't ready.
+
+Wei Lin, shall I tentatively hold T1402 for 10am on the 20th, and we confirm by Wednesday?
+
+Also reminder — we need to upload the CA Test 2 paper to the shared drive by Friday for your review. I've drafted questions for the hypothesis testing section. Jason, are you done with the probability distributions section?
+
+Priya
+
+---
+
+From: Jason Lee <jason_lee@sp.edu.sg>
+To: SMSA Lecturers <smsa-lecturers@sp.edu.sg>
+Date: Mon, 14 Apr 2026 11:42 AM
+
+Priya — almost done. I'll have the distributions questions ready by Wednesday. Just tidying up the last two MCQs.
+
+Happy to go with the plan: wait for Estates update on T1601, use T1402 as backup.
+
+One more thing — are we still using the same format as CA Test 1? (15 MCQs + 3 structured questions, 45 minutes?) Some students said they found CA1 too long. I'd suggest reducing to 12 MCQs if we keep 3 structured questions.
+
+Jason
+
+---
+
+From: Dr. Tan Wei Lin <tan_wei_lin@sp.edu.sg>
+To: SMSA Lecturers <smsa-lecturers@sp.edu.sg>
+Date: Mon, 14 Apr 2026 02:08 PM
+
+Thanks everyone for the quick responses. Here's what we'll do:
+
+VENUE: Wait for Estates to confirm T1601 availability by Wednesday. Priya, please tentatively hold T1402 as backup for Monday 20 April 10am. I'll email Estates now to request a status update by EOD Wednesday.
+
+TEST PAPER: Priya's hypothesis testing questions + Jason's distributions questions by Friday. I'll add the sampling distributions section and do the final compilation over the weekend.
+
+FORMAT: Let's keep 15 MCQs + 3 structured questions but allow 50 minutes instead of 45. I'll request the extra 5 minutes from the exam committee. The students had a valid point about timing.
+
+ACTION ITEMS:
+- Jason: distributions questions by Wednesday
+- Priya: hold T1402, upload hypothesis testing questions to shared drive
+- Wei Lin (me): email Estates, add sampling section, compile final paper by Saturday
+- All: review final paper on shared drive by Sunday evening
+
+Let me know if I've missed anything.
+
+Wei Lin

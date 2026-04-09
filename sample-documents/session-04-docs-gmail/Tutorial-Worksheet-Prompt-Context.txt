@@ -1,0 +1,39 @@
+CONTEXT FOR GEMINI IN DOCS EXERCISE
+=====================================
+
+Use the information below to prompt Gemini in Google Docs to generate a tutorial worksheet.
+
+MODULE: ST0001 Statistics I
+TOPIC: Confidence Intervals (Week 6)
+AUDIENCE: Year 1 diploma students at Singapore Polytechnic
+
+WHAT STUDENTS HAVE ALREADY LEARNED:
+- Descriptive statistics (mean, median, mode, standard deviation)
+- Probability rules and probability distributions (normal, binomial)
+- Sampling distributions and the Central Limit Theorem
+- Hypothesis testing (z-test, t-test, one-tailed and two-tailed)
+
+WHAT THIS WORKSHEET SHOULD COVER:
+- What a confidence interval is and how to interpret it
+- Constructing confidence intervals for population means (known and unknown σ)
+- Constructing confidence intervals for population proportions
+- Choosing the correct formula based on the scenario
+- The relationship between confidence level and interval width
+- The effect of sample size on interval width
+
+WORKSHEET REQUIREMENTS:
+- Start with a brief recap of key formulas (CI for mean with known σ, unknown σ, and proportion)
+- Include 5-6 practice problems with increasing difficulty
+- Problems should use realistic Singapore contexts (e.g., HDB flat sizes, MRT wait times, hawker centre prices, student commute times)
+- Include at least one problem that requires students to interpret a CI result in words
+- Include at least one problem where students determine the required sample size for a desired margin of error
+- End with a "challenge question" that combines confidence intervals with hypothesis testing
+
+TONE: Clear and encouraging. Suitable for students who may be encountering these concepts for the first time. Avoid overly technical language where simpler phrasing works.
+
+FORMAT: Numbered questions with space for working. Include a formula reference box at the top.
+
+---
+
+SUGGESTED EXERCISE PROMPT:
+"Generate a tutorial worksheet for Year 1 statistics students on the topic of confidence intervals. Include 6 practice problems using realistic Singapore contexts, a formula reference box, and a challenge question that links to hypothesis testing. Keep the language clear and encouraging."

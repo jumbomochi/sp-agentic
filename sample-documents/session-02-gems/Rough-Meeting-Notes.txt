@@ -1,0 +1,20 @@
+SMSA dept meeting 7 apr 2026 2pm
+
+Present: dr tan wei lin (chair), jason lee, siti nurhaliza, mark goh, priya nair, david wong
+Absent: rachel lim (MC)
+
+jason gave update on sem 2 timetabling issues. 3 rooms double booked for week 5. T1601 and T1203 affected. he will sort with estates by friday.
+
+siti raised concern about low attendance in ST0002 tutorials. only about 40% showing up since week 3. discussed possible reasons - class at 8am, students say they can get notes online. agreed to survey students and consider moving timeslot. siti to send google form by end of week.
+
+mark shared that the new python lab for MA0003 is ready. tested with 2 student volunteers. minor bugs in notebook 3 (pandas import issue). wants to pilot in week 6 tutorial. no objections. mark will fix bugs and upload final version by 11 apr.
+
+discussed industry engagement. priya met with grab analytics team last month. they're open to guest lecture in may. topic would be "data analytics in ride-hailing". priya to confirm date and speaker by 14 apr. david suggested we could also approach dbs as they did something last year.
+
+budget update from dr tan. dept has $4,200 remaining in training budget for FY2025/26. must be used by 30 jun. suggested sending 2 staff for google cloud training in may. jason and mark expressed interest. dr tan will submit PD application.
+
+AOB: david asked about progress on the new data science elective proposal. dr tan said she submitted to curriculum committee last week. expecting feedback by end of april. david offered to prepare the lab infrastructure requirements if approved.
+
+next meeting: 21 apr 2026, 2pm, same room.
+
+meeting ended 3.15pm
