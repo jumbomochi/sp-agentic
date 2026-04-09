@@ -27,7 +27,6 @@ Each file has one clear responsibility.
 **Create:**
 
 - `session-07-workspace-flows/sample-documents/test-emails.md` — copy-pasteable email templates for the live demo trigger and hands-on exercises. Single responsibility: test data.
-- `session-07-workspace-flows/SLIDE-UPDATE-CHECKLIST.md` — mechanical migration checklist for manual PowerPoint edits. Single responsibility: migration runbook for the binary slide deck.
 
 **Rewrite (overwrite existing file after rename):**
 
@@ -38,10 +37,15 @@ Each file has one clear responsibility.
 - `agenda.md` — workshop-level agenda, 8 edits to Session 7 references
 - `course-overview.html` — HTML landing page, 4 edits to Session 7 card
 - `session-11-wrapup/talking-points.md` — wrap-up session, 4 edits to "Workspace Agent" references
+- `build-slides.py` — Python script that programmatically generates the slide deck, 14 edits across Session 1, Session 5, Session 7, and Session 11 slide definitions
+- `session-02-gems/demo-guide.md` — one cross-reference line mentioning Session 7 by old name
+- `session-05-notebooklm/demo-guide.md` — one cross-reference line mentioning Session 7 by old name
 
-**Manual (not touched by this plan):**
+**Not touched by this plan:**
 
-- `Workshop-Full-Day-Slides.pptx` — user handles in PowerPoint using `SLIDE-UPDATE-CHECKLIST.md`
+- `Workshop-Full-Day-Slides.pptx` — **this is generated output, not source.** It is produced by running `build-slides.py`. The `build-slides.py` edits above are what actually change the deck contents. The `.pptx` will be regenerated manually by the user after the peripheral updates commit lands, via `python build-slides.py` (or equivalent build command).
+
+> **Amendment (2026-04-10, during execution):** The original plan scoped the slide deck as a manual PowerPoint edit target with a `SLIDE-UPDATE-CHECKLIST.md` runbook. Task 1's baseline grep discovered that `build-slides.py` is the canonical source — the `.pptx` is generated output. The plan was amended in place to (1) drop the `SLIDE-UPDATE-CHECKLIST.md` creation, (2) add `build-slides.py` as a target for line-targeted edits, (3) add two additional cross-session demo-guide edits that were also surfaced by the baseline grep. Amendment commit follows the main plan commit.
 
 ---
 
@@ -50,8 +54,8 @@ Each file has one clear responsibility.
 Three atomic commits, each reversible on its own:
 
 1. **Commit 1 (Task 2):** `Rename session-07 folder to workspace-flows and remove old FAQ sample`
-2. **Commit 2 (Tasks 3–5):** `Rewrite Session 7 demo guide for Workspace Studio Flows`
-3. **Commit 3 (Tasks 6–8):** `Update workshop materials for Session 7 Flows rescope`
+2. **Commit 2 (Tasks 3–4):** `Rewrite Session 7 demo guide for Workspace Studio Flows` (demo-guide.md + test-emails.md; Task 5 removed by amendment because SLIDE-UPDATE-CHECKLIST.md is no longer created)
+3. **Commit 3 (Tasks 6–8):** `Update workshop materials and slide generator for Session 7 Flows rescope` (agenda.md + course-overview.html + session-11-wrapup/talking-points.md + build-slides.py + session-02-gems/demo-guide.md + session-05-notebooklm/demo-guide.md)
 
 No push step — the user will push manually after reviewing all commits.
 
@@ -94,15 +98,19 @@ Pattern: Stats Module Assistant
 Pattern: Student Query Agent
 ```
 
-Expected findings (baseline — the final verification will compare against these):
+Expected findings (baseline — the final verification will compare against these). **Note: this list was expanded by the 2026-04-10 amendment after the baseline grep surfaced three additional files.**
 
 - `agenda.md` — lines 12, 131, 135, 137–142, 144, 220, 237, 265
 - `course-overview.html` — lines 532, 534, 537, 643
 - `session-07-workspace-agents/demo-guide.md` — pervasive (the file is fully rewritten, so we don't need a line count)
 - `session-07-workspace-agents/sample-documents/ST0001-Module-FAQ.docx.md` — deleted entirely, so stragglers inside it don't matter
 - `session-11-wrapup/talking-points.md` — lines 20, 33, 44, 68
+- **(Amendment)** `session-02-gems/demo-guide.md` — line 381 (one-line forward reference to Session 7)
+- **(Amendment)** `session-05-notebooklm/demo-guide.md` — line 107 (one-line forward reference to Session 7)
+- **(Amendment)** `build-slides.py` — lines 553, 570–579, 585, 642, 741–811, 915, 925, 946 (Session 1 "Today's Journey", "AI Maturity Spectrum", "Using Gemini Responsibly"; Session 5 "NotebookLM vs. Gems"; the entire Session 7 block; Session 11 recap table, grounding thread, action planning)
+- Committed spec and plan files in `docs/superpowers/` — these legitimately reference old names and should NOT be updated
 
-Document any additional unexpected hits (e.g., references in `build-slides.py`, other session guides). Add them to Task 9's verification list.
+If the baseline grep finds anything beyond this list, surface it to the user before proceeding. The plan can be amended in place if the unexpected hits are small (one-line fixes); go back to brainstorming if they reveal additional architectural issues.
 
 - [ ] **Step 4: Verify the spec is accessible**
 
@@ -672,7 +680,6 @@ After the exercise, briefly recap before moving to Session 8:
 ```
 session-07-workspace-flows/
 ├── demo-guide.md                    ← This file (instructor guide)
-├── SLIDE-UPDATE-CHECKLIST.md        ← Migration checklist for updating the slide deck
 └── sample-documents/
     └── test-emails.md               ← Test email templates for demo and exercises
 ```
@@ -901,14 +908,85 @@ wc -l session-07-workspace-flows/sample-documents/test-emails.md
 ```
 Expected: approximately 170–200 lines.
 
-**No commit yet — bundling with Tasks 3 and 5.**
+**No commit yet — bundling with Task 5.**
 
 ---
 
-## Task 5: Create `session-07-workspace-flows/SLIDE-UPDATE-CHECKLIST.md` and commit
+## Task 5: Commit the Session 7 rewrite
+
+> **Amended 2026-04-10:** This task was originally "Create `SLIDE-UPDATE-CHECKLIST.md` and commit". The amendment removes the `SLIDE-UPDATE-CHECKLIST.md` creation step because the slide deck is code-generated from `build-slides.py` (discovered during Task 1 baseline grep), not hand-edited. The slide changes are now handled by line-targeted edits to `build-slides.py` in Task 8. This task is now just the commit step for Tasks 3 and 4.
 
 **Files:**
-- Create: `session-07-workspace-flows/SLIDE-UPDATE-CHECKLIST.md`
+- Commit staged changes from Tasks 3 and 4 (demo-guide.md rewrite + test-emails.md creation)
+
+- [ ] **Step 1: Verify both new/rewritten files are in place**
+
+Run:
+```bash
+ls -la session-07-workspace-flows/ session-07-workspace-flows/sample-documents/
+```
+Expected output includes:
+```
+session-07-workspace-flows/:
+demo-guide.md
+sample-documents
+
+session-07-workspace-flows/sample-documents/:
+test-emails.md
+```
+
+- [ ] **Step 2: Verify git status**
+
+Run:
+```bash
+git status
+```
+Expected to show:
+- Modified: `session-07-workspace-flows/demo-guide.md`
+- New file: `session-07-workspace-flows/sample-documents/test-emails.md`
+
+(The `demo-guide.md` will show as modified because it was renamed from the old path in Task 2 and rewritten in Task 3.)
+
+- [ ] **Step 3: Stage and commit**
+
+Run:
+```bash
+git add session-07-workspace-flows/demo-guide.md \
+        session-07-workspace-flows/sample-documents/test-emails.md
+git commit -m "$(cat <<'EOF'
+Rewrite Session 7 demo guide for Workspace Studio Flows
+
+Replace the old "Workspace Studio Agents" instructor script with
+a new walkthrough centred on the Intelligent Inbox Triage live demo
+(When I get an email → Ask Gemini → Check if → Notify in Chat +
+Add labels). Add test email templates used by the demo and the
+intermediate exercise.
+
+Slide deck edits are handled separately in the peripheral updates
+commit, which rewrites build-slides.py (the generator) rather than
+touching the .pptx directly.
+
+Design spec: docs/superpowers/specs/2026-04-10-session-07-workspace-studio-flows-design.md
+
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+EOF
+)"
+```
+
+Expected output: `[main <hash>] Rewrite Session 7 demo guide for Workspace Studio Flows`
+
+- [ ] **Step 4: Verify the commit**
+
+Run:
+```bash
+git log -1 --stat
+```
+Expected: a commit showing modifications to `demo-guide.md` and `sample-documents/test-emails.md` only.
+
+<!-- AMENDED OUT: steps to create SLIDE-UPDATE-CHECKLIST.md removed. Original content below is replaced with the minimal commit task above. -->
+
+<details>
+<summary>Original Task 5 content (AMENDED OUT — do not execute)</summary>
 
 - [ ] **Step 1: Use the Write tool to create `session-07-workspace-flows/SLIDE-UPDATE-CHECKLIST.md` with the following content**
 
@@ -1139,6 +1217,8 @@ Run:
 git log -1 --stat
 ```
 Expected: a commit showing `demo-guide.md`, `sample-documents/test-emails.md`, and `SLIDE-UPDATE-CHECKLIST.md` modifications.
+
+</details>
 
 ---
 
@@ -1439,45 +1519,421 @@ Pattern: Workspace Flows (in session-11-wrapup/talking-points.md)         → sh
 Pattern: Workspace Flow (in session-11-wrapup/talking-points.md)          → should now be 2 matches (lines 20, 68)
 ```
 
-- [ ] **Step 6: Verify git status for all three modified files**
+- [ ] **Step 6: Edit `session-02-gems/demo-guide.md:381` (AMENDED — cross-session forward reference)**
+
+Use the Edit tool with:
+
+**old_string:**
+```
+6. **This connects forward** — the same instruction-writing discipline powers Workspace Studio Agents (Session 7) and Vertex AI system prompts (Session 8+)
+```
+
+**new_string:**
+```
+6. **This connects forward** — the same instruction-writing discipline powers the `Ask Gemini` step in Workspace Studio Flows (Session 7) and Vertex AI system prompts (Session 8+)
+```
+
+- [ ] **Step 7: Edit `session-05-notebooklm/demo-guide.md:107` (AMENDED — cross-session forward reference)**
+
+Use the Edit tool with:
+
+**old_string:**
+```
+> "That wraps up the morning. After lunch, we shift from *using* AI to *building* with AI — starting with Apps Script automations and then Workspace Studio Agents."
+```
+
+**new_string:**
+```
+> "That wraps up the morning. After lunch, we shift from *using* AI to *building* with AI — starting with Apps Script automations and then no-code Workspace Studio Flows."
+```
+
+- [ ] **Step 8: Rewrite Session 7 slide definitions in `build-slides.py` (AMENDED — 7 line-targeted edits)**
+
+This step contains 7 Edit tool calls, all to the same file (`build-slides.py`). Execute them in order.
+
+**Step 8a — Section header comment:**
+
+**old_string:**
+```
+    # ── SESSION 7: Workspace Studio Agents ────────────────────
+```
+
+**new_string:**
+```
+    # ── SESSION 7: Workspace Studio Flows ────────────────────
+```
+
+**Step 8b — Section header title:**
+
+**old_string:**
+```
+    build_section_header(prs, gw_section_bg, 7,
+        "Workspace\nStudio Agents",
+        "1:45 PM – 2:30 PM", color=YELLOW)
+```
+
+**new_string:**
+```
+    build_section_header(prs, gw_section_bg, 7,
+        "Workspace\nStudio Flows",
+        "1:45 PM – 2:30 PM", color=YELLOW)
+```
+
+**Step 8c — "What are Workspace Studio Agents?" content slide:**
+
+**old_string:**
+```
+    build_content_slide(prs,
+        "What are Workspace Studio Agents?",
+        [
+            "No-code AI agents that live inside Google Workspace",
+            "Like Gems — but with the ability to take actions and access live data",
+            "Can search Drive, read emails, query Sheets, and act on your behalf",
+            "Grounded in your documents — reducing hallucination",
+            "Shareable with your team — anyone can chat with the agent",
+        ]
+    )
+```
+
+**new_string:**
+```
+    build_content_slide(prs,
+        "What are Workspace Studio Flows?",
+        [
+            "No-code, event-driven automations built in a visual pipeline",
+            "Trigger → AI step → Actions — compose Gemini reasoning with Workspace apps",
+            "13 triggers across Gmail, Chat, Sheets, Drive, Forms, Meet, Calendar, schedules",
+            "20+ actions: Ask Gemini, Gmail, Chat, Sheets, Docs, Tasks, control flow",
+            "Like Power Automate with Copilot steps — native to Google Workspace",
+        ]
+    )
+```
+
+**Step 8d — "Gems vs. Workspace Studio Agents" two-column slide:**
+
+**old_string:**
+```
+    build_two_column_slide(prs,
+        "Gems vs. Workspace Studio Agents",
+        [
+            "Custom prompt template",
+            "Static knowledge files",
+            "Text output only",
+            "Good for: repetitive formatting tasks",
+            "Example: \"Feedback Writer\" Gem",
+        ],
+        [
+            "AI assistant with actions",
+            "Live connections to Drive, Sheets, Gmail",
+            "Can search, read, summarise, draft",
+            "Good for: Q&A, lookup, multi-step tasks",
+            "Example: \"Student FAQ Assistant\" agent",
+        ],
+        left_header="Gems",
+        right_header="Workspace Studio Agents"
+    )
+```
+
+**new_string:**
+```
+    build_two_column_slide(prs,
+        "Apps Script vs. Workspace Studio Flows",
+        [
+            "Code (JavaScript)",
+            "Gemini generates the code for you",
+            "Complex logic, full control",
+            "AI calls require explicit API usage",
+            "Example: Grade emailer script",
+        ],
+        [
+            "No code — visual drag-and-configure",
+            "Ask Gemini is a first-class step",
+            "Event-driven pipelines across apps",
+            "AI reasoning composed inline with actions",
+            "Example: Intelligent Inbox Triage flow",
+        ],
+        left_header="Apps Script (Session 6)",
+        right_header="Workspace Studio Flows (Session 7)"
+    )
+```
+
+**Step 8e — "Live Build: Stats Module Assistant" content slide:**
+
+**old_string:**
+```
+    build_content_slide(prs,
+        "Live Build: Stats Module Assistant",
+        [
+            "Step 1: Create a new agent in Gemini → Gems and agents",
+            "Step 2: Write instructions — role, constraints, tone",
+            "Step 3: Add data sources — FAQ document + module schedule from Drive",
+            "Step 4: Test with queries — FAQ lookup, schedule check, boundary test",
+            "Step 5: Share the agent with others",
+        ],
+        footer_text="10 minutes from blank agent to working student assistant. No code."
+    )
+```
+
+**new_string:**
+```
+    build_content_slide(prs,
+        "Live Build: Intelligent Inbox Triage",
+        [
+            "Trigger: When I get an email (filtered by [DEMO] subject)",
+            "Step 1: Ask Gemini — classify + extract (custom prompt)",
+            "Step 2: Check if — only continue for urgent cases",
+            "Step 3: Notify me in Chat — formatted summary with extracted fields",
+            "Step 4: Add labels — apply Urgent-Student to the email",
+        ],
+        footer_text="5 nodes. 1 prompt. 1 filter. No code — just a visual pipeline with Gemini in the middle."
+    )
+```
+
+**Step 8f — "Writing Good Agent Instructions" content slide:**
+
+**old_string:**
+```
+    build_content_slide(prs,
+        "Writing Good Agent Instructions",
+        [
+            "Define the role: \"You are a helpful assistant for students in ST0001\"",
+            "Set constraints: \"Never make up dates or policies — only use your data sources\"",
+            "Handle boundaries: \"If asked about other modules, politely explain you only cover ST0001\"",
+            "Set tone: \"Friendly and supportive — like a helpful senior student\"",
+            "Keep it concise: \"2-3 sentences when possible, longer only if needed\"",
+        ],
+        footer_text="The same instruction-writing skills apply to system prompts in Vertex AI."
+    )
+```
+
+**new_string:**
+```
+    build_content_slide(prs,
+        "Writing the Ask Gemini Prompt",
+        [
+            "Define the role: \"You are an email triage assistant for a SP lecturer\"",
+            "Give a closed set of categories — explicit choices beat open-ended ones",
+            "Demand a rigid output format — every field on its own line",
+            "The next step reads your output programmatically — format drift breaks the flow",
+            "Iterate on the prompt, not on code — save, resend, watch it work",
+        ],
+        footer_text="Same prompt-engineering discipline as Gems (Session 2) and =AI() cells (Session 3)."
+    )
+```
+
+**Step 8g — "Build Your Own Workspace Agent" exercise slide:**
+
+**old_string:**
+```
+    build_exercise_slide(prs,
+        "Build Your Own Workspace Agent (20 min)",
+        [
+            "Option A (Recommended): Build the Stats Module Assistant using the pre-prepared FAQ and schedule",
+            "Option B: Build an administrative assistant — room booking, event planning, or HR policy Q&A",
+            "Option C (Advanced): Build a revision coach grounded in actual lecture notes",
+            "Test with at least 3 queries, including one the agent shouldn't answer",
+            "Share with a neighbour and have them try to break it",
+        ],
+        color=YELLOW
+    )
+```
+
+**new_string:**
+```
+    build_exercise_slide(prs,
+        "Build Your Own Flow (20 min)",
+        [
+            "Beginner: Morning Inbox Digest (On a schedule → Recap unread emails → Notify in Chat)",
+            "Intermediate: Email-to-Task Extractor (Ask Gemini extracts deadlines, creates Google Tasks)",
+            "Advanced: Student Query Router (multi-branch classification and Chat routing)",
+            "Fallback: Bring your own use case — describe it in the Discover bar",
+            "Test-trigger your flow, iterate on the prompt, share if you like it",
+        ],
+        color=YELLOW
+    )
+```
+
+- [ ] **Step 9: Update peripheral slide references in `build-slides.py` (AMENDED — 7 line-targeted edits)**
+
+This step contains 7 Edit tool calls across Session 1, Session 5, and Session 11 slide definitions in the same file.
+
+**Step 9a — Session 1 "Today's Journey" bullet:**
+
+**old_string:**
+```
+            "By end of day: Gems, Apps Script, Workspace Agents, Vertex AI, Gemini API",
+```
+
+**new_string:**
+```
+            "By end of day: Gems, Apps Script, Workspace Flows, Vertex AI, Gemini API",
+```
+
+**Step 9b — Session 1 "AI Maturity Spectrum" slide (title + Level 3 + Level 4):**
+
+**old_string:**
+```
+    build_content_slide(prs,
+        "From Assistants to Agents — The AI Maturity Spectrum",
+        [
+            "Level 1 — Prompting: Ask Gemini to draft an email about the CA test",
+            "Level 2 — Customising: Create a Gem with persona and instructions for reuse",
+            "Level 3 — Automating: Apps Script sends personalised grade emails automatically",
+            "Level 4 — Building Agents: No-code Workspace Agent answers student FAQs from your docs",
+            "Level 5 — Developing Apps: Gemini API via Python for custom applications",
+        ],
+        footer_text="Today we touch every level on this spectrum."
+    )
+```
+
+**new_string:**
+```
+    build_content_slide(prs,
+        "From Prompts to Applications — The AI Maturity Spectrum",
+        [
+            "Level 1 — Prompting: Ask Gemini to draft an email about the CA test",
+            "Level 2 — Customising: Create a Gem with persona and instructions for reuse",
+            "Level 3 — Code Automation: Apps Script sends personalised grade emails",
+            "Level 4 — No-Code Pipelines: Workspace Flows compose Ask Gemini with Gmail, Chat, Sheets",
+            "Level 5 — Developing Apps: Gemini API via Python for custom applications",
+        ],
+        footer_text="Today we touch every level on this spectrum."
+    )
+```
+
+**Step 9c — Session 1 "Using Gemini Responsibly" bullet:**
+
+**old_string:**
+```
+            "Grounding: Constraining AI to known documents reduces hallucination (NotebookLM, Agents, Vertex AI)",
+```
+
+**new_string:**
+```
+            "Grounding: Constraining AI to known documents reduces hallucination (NotebookLM, Flows, Vertex AI)",
+```
+
+**Step 9d — Session 5 "NotebookLM vs. Gems vs. Workspace Agents" title:**
+
+The slide only has 2 content columns (Gems and NotebookLM) despite the 3-way title. Fix the title to match the actual content.
+
+**old_string:**
+```
+    build_two_column_slide(prs,
+        "NotebookLM vs. Gems vs. Workspace Agents",
+```
+
+**new_string:**
+```
+    build_two_column_slide(prs,
+        "NotebookLM vs. Gems",
+```
+
+**Step 9e — Session 11 "Spectrum You Experienced Today" recap table row:**
+
+**old_string:**
+```
+            ["Building with AI", "Created a no-code Workspace Agent", "7"],
+```
+
+**new_string:**
+```
+            ["Building with AI", "Built a no-code Workspace Flow", "7"],
+```
+
+**Step 9f — Session 11 "Grounding Thread" bullet:**
+
+**old_string:**
+```
+            "Workspace Agents: grounded in live Drive documents",
+```
+
+**new_string:**
+```
+            "Workspace Flows: the Ask Gemini step is grounded in the trigger event data",
+```
+
+**Step 9g — Session 11 "Action Planning" question:**
+
+**old_string:**
+```
+            "Which tool would you use? (Gem / Apps Script / Workspace Agent / Vertex AI)",
+```
+
+**new_string:**
+```
+            "Which tool would you use? (Gem / Apps Script / Workspace Flow / Vertex AI)",
+```
+
+- [ ] **Step 10: Verify all peripheral-file edits landed (AMENDED)**
+
+Use Grep with these patterns and confirm zero remaining "Workspace Agents" / "Workspace Agent" references in the modified files:
+
+```
+Pattern: Workspace Studio Agent (in agenda.md)                          → 0 matches
+Pattern: Workspace Agents (in agenda.md)                                → 0 matches
+Pattern: Workspace Agent (in agenda.md)                                 → 0 matches
+Pattern: Workspace Studio Agent (in course-overview.html)               → 0 matches
+Pattern: Workspace Agents (in course-overview.html)                     → 0 matches
+Pattern: Workspace Studio Agent (in session-11-wrapup/talking-points.md) → 0 matches
+Pattern: Workspace Agents (in session-11-wrapup/talking-points.md)      → 0 matches
+Pattern: Workspace Studio Agents (in session-02-gems/demo-guide.md)     → 0 matches
+Pattern: Workspace Studio Agents (in session-05-notebooklm/demo-guide.md) → 0 matches
+Pattern: Workspace Studio Agents (in build-slides.py)                   → 0 matches
+Pattern: Workspace Agents (in build-slides.py)                          → 0 matches
+Pattern: Stats Module Assistant (in build-slides.py)                    → 0 matches
+```
+
+- [ ] **Step 11: Verify git status for all six modified files (AMENDED)**
 
 Run:
 ```bash
 git status
 ```
-Expected to show modifications to:
+Expected to show modifications to all six files:
 - `agenda.md`
 - `course-overview.html`
 - `session-11-wrapup/talking-points.md`
+- `session-02-gems/demo-guide.md`
+- `session-05-notebooklm/demo-guide.md`
+- `build-slides.py`
 
-- [ ] **Step 7: Stage and commit**
+- [ ] **Step 12: Stage and commit (AMENDED commit message)**
 
 Run:
 ```bash
-git add agenda.md course-overview.html session-11-wrapup/talking-points.md
+git add agenda.md course-overview.html session-11-wrapup/talking-points.md \
+        session-02-gems/demo-guide.md session-05-notebooklm/demo-guide.md \
+        build-slides.py
 git commit -m "$(cat <<'EOF'
-Update workshop materials for Session 7 Flows rescope
+Update workshop materials and slide generator for Session 7 rescope
 
 Update cross-file references in the top-level agenda, course
-overview landing page, and wrap-up talking points to match the
-Session 7 rescope from "Workspace Studio Agents" to "Workspace
-Studio Flows". Slide deck is handled separately via the manual
-checklist at session-07-workspace-flows/SLIDE-UPDATE-CHECKLIST.md.
+overview, wrap-up talking points, and two cross-session demo
+guides to match the Session 7 rescope from "Workspace Studio
+Agents" to "Workspace Studio Flows".
+
+Also rewrite the Session 7 slide definitions in build-slides.py
+(the Python script that programmatically generates the slide
+deck) and update peripheral slide references in Session 1,
+Session 5, and Session 11. After this commit lands, the user
+regenerates Workshop-Full-Day-Slides.pptx by running
+build-slides.py — hand-editing the .pptx is not needed.
 
 Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
 EOF
 )"
 ```
 
-Expected output: `[main <hash>] Update workshop materials for Session 7 Flows rescope`
+Expected output: `[main <hash>] Update workshop materials and slide generator for Session 7 rescope`
 
-- [ ] **Step 8: Verify the commit**
+- [ ] **Step 13: Verify the commit**
 
 Run:
 ```bash
 git log -1 --stat
 ```
-Expected: a commit showing modifications to `agenda.md`, `course-overview.html`, and `session-11-wrapup/talking-points.md`.
+Expected: a commit showing modifications to all six files listed in Step 11.
 
 ---
 
@@ -1499,9 +1955,13 @@ Pattern: Workspace Studio Agent
 Pattern: Workspace Agent
 ```
 
-**Expected result:** Zero matches in any tracked file (the `.pptx` is binary and excluded from grep by default — that's fine, it's handled by the manual checklist).
+**Expected result:** Zero matches in any tracked file (the `.pptx` is binary and excluded from grep by default — that's fine, it will be regenerated from `build-slides.py` after this plan completes).
 
-If there are any remaining matches in text files, stop and surface them to the user. Do not attempt to fix them blindly — some uses of "agent" in the repo are legitimate (e.g., "Vertex AI Agent Builder" in Session 8+ materials, or "from assistants to agents" in Session 1's ecosystem overview).
+If there are any remaining matches in text files, stop and surface them to the user. Do not attempt to fix them blindly — some uses of "agent" in the repo are legitimate (e.g., "Vertex AI Agent Builder" in Session 8+ materials if any, or general references to "AI agents" as an industry concept that aren't tied to the old Workspace Studio Agents product).
+
+**Acceptable remaining matches** (do not flag as stragglers):
+- `docs/superpowers/specs/2026-04-10-session-07-workspace-studio-flows-design.md` — the design spec legitimately references the old name when explaining why it was replaced
+- `docs/superpowers/plans/2026-04-10-session-07-workspace-studio-flows.md` — this plan file legitimately references the old name inside the `<details>`-wrapped amended-out Task 5 content and inside old_string values of Edit tool calls
 
 - [ ] **Step 2: Grep for any remaining references to the old folder path**
 
@@ -1533,7 +1993,7 @@ Pattern: Student Query Agent
 
 **Expected result:** Zero matches in text files. Acceptable only in the design spec for the same reason as Step 3.
 
-- [ ] **Step 5: Verify the new session folder structure**
+- [ ] **Step 5: Verify the new session folder structure (AMENDED)**
 
 Run:
 ```bash
@@ -1542,9 +2002,10 @@ find session-07-workspace-flows -type f
 Expected output:
 ```
 session-07-workspace-flows/demo-guide.md
-session-07-workspace-flows/SLIDE-UPDATE-CHECKLIST.md
 session-07-workspace-flows/sample-documents/test-emails.md
 ```
+
+(The SLIDE-UPDATE-CHECKLIST.md file that the original plan called for is NOT created, per the amendment. The slide deck is handled by editing `build-slides.py` in Task 8 instead.)
 
 - [ ] **Step 6: Verify the old session folder no longer exists**
 
@@ -1562,20 +2023,23 @@ git log --oneline -5
 ```
 Expected to show (in reverse chronological order, most recent first):
 ```
-<hash> Update workshop materials for Session 7 Flows rescope
+<hash> Update workshop materials and slide generator for Session 7 rescope
 <hash> Rewrite Session 7 demo guide for Workspace Studio Flows
 <hash> Rename session-07 folder to workspace-flows and remove old FAQ sample
+<hash> Extend Session 7 plan with build-slides.py edits (plan amendment commit)
+<hash> Add Session 7 Flows rescope implementation plan
 <hash> Add Session 7 rescope design spec
 <hash> Harden demo 1 script and expand Session 2 Gem walkthrough
 ```
 
-- [ ] **Step 8: Summarise completion to the user**
+- [ ] **Step 8: Summarise completion to the user (AMENDED)**
 
 Report:
-- Three new commits on main
-- Folder renamed, old FAQ deleted, demo guide rewritten, new assets created, peripheral files updated
-- `Workshop-Full-Day-Slides.pptx` still pending manual update — point the user at `session-07-workspace-flows/SLIDE-UPDATE-CHECKLIST.md` to work through the slide changes
-- Ask the user whether to push the three commits to `origin/main` or leave them local for their own inspection first
+- Three new implementation commits on `main` (plus the plan amendment commit that preceded them)
+- Folder renamed, old FAQ deleted, demo guide rewritten, test-emails.md created, peripheral files updated
+- Six files were edited for the Session 7 rescope: `agenda.md`, `course-overview.html`, `session-11-wrapup/talking-points.md`, `session-02-gems/demo-guide.md`, `session-05-notebooklm/demo-guide.md`, `build-slides.py`
+- `Workshop-Full-Day-Slides.pptx` will need to be regenerated by running `python build-slides.py` (or whatever command the user normally uses). The binary file itself is NOT touched by this plan — the edits are all in the generator script.
+- Ask the user whether to (a) push the commits to `origin/main`, (b) run `build-slides.py` to regenerate the deck and commit the updated binary, or (c) leave everything local for their own inspection first
 
 **No commit in this task** — verification only.
 
@@ -1585,17 +2049,20 @@ Report:
 
 Use this checklist to verify the plan against the spec before execution.
 
-**Spec coverage:**
+**Spec coverage (amended):**
 
 - [x] Folder rename (Spec §5.1) → Task 2
 - [x] Delete old FAQ sample doc (Spec §5.1) → Task 2
 - [x] Create `sample-documents/test-emails.md` (Spec §5.2) → Task 4
-- [x] Create `SLIDE-UPDATE-CHECKLIST.md` (Spec §5.2) → Task 5
+- [x] ~~Create `SLIDE-UPDATE-CHECKLIST.md`~~ → REMOVED by amendment (slide deck is code-generated from `build-slides.py`, no manual checklist needed)
 - [x] Rewrite `demo-guide.md` (Spec §5.3, §2, §3, §4) → Task 3
 - [x] Update `agenda.md` lines 12, 131–142, 144–149, 150, 220, 237, 265 (Spec §5.4) → Task 6
 - [x] Update `course-overview.html` lines 532, 534, 537, 643 (Spec §5.5) → Task 7
-- [x] Update `session-11-wrapup/talking-points.md` lines 20, 33, 44, 68 (Spec §5.6) → Task 8
-- [x] Slide deck handled via manual checklist (Spec §5.7) → Included in Task 5 as the checklist content; actual editing is user-side
+- [x] Update `session-11-wrapup/talking-points.md` lines 20, 33, 44, 68 (Spec §5.6) → Task 8 (Steps 1–5)
+- [x] **(Amendment)** Rewrite Session 7 slide definitions in `build-slides.py` → Task 8 Step 8 (7 sub-edits)
+- [x] **(Amendment)** Update peripheral slide references in `build-slides.py` → Task 8 Step 9 (7 sub-edits)
+- [x] **(Amendment)** Update `session-02-gems/demo-guide.md:381` cross-reference → Task 8 Step 6
+- [x] **(Amendment)** Update `session-05-notebooklm/demo-guide.md:107` cross-reference → Task 8 Step 7
 - [x] Cross-file grep for `session-07-workspace-agents` references (Spec §5.1) → Task 2 Step 6 and Task 9 Step 2
 
 **Placeholder scan:**
@@ -1611,13 +2078,13 @@ Use this checklist to verify the plan against the spec before execution.
 - Flow name used consistently: `Intelligent Inbox Triage` throughout
 - Gmail label used consistently: `Urgent-Student` (exact spelling)
 - Gemini prompt categories used consistently: `URGENT_STUDENT`, `ADMIN_REQUEST`, `NEWSLETTER`, `OTHER` (uppercase with underscores)
-- Commit message subjects match between plan and spec
+- Commit message subjects match between plan and spec (amended to match new scope)
 
 **Commit atomicity:**
 
 - Commit 1 (Task 2): rename-only, reverts cleanly with `git revert` if needed
-- Commit 2 (Tasks 3–5): all new Session 7 content bundled; reverts cleanly
-- Commit 3 (Tasks 6–8): all peripheral updates bundled; reverts cleanly
+- Commit 2 (Tasks 3–5): demo guide rewrite + test-emails.md bundled; reverts cleanly (Task 5 now minimal — just the commit step, no file creation)
+- Commit 3 (Tasks 6–8): all peripheral updates bundled — agenda, course-overview, wrap-up, two cross-session demo guides, and build-slides.py; reverts cleanly
 
 ---
 
@@ -1626,8 +2093,9 @@ Use this checklist to verify the plan against the spec before execution.
 - The plan has 9 tasks. Tasks 1 and 9 are read-only (baseline and verification); the other 7 produce changes.
 - Three commits total. Execution should pause after each commit so the user can inspect before proceeding.
 - Task 3 (demo guide rewrite) is the largest single change — ~400 lines of content in one Write tool call.
-- All Edit tool calls have exact `old_string` values captured from the current file state as of the spec commit (`3eb8048`). If the files have diverged since then, the Edit calls will fail and the executor must resolve the diff before continuing.
-- `Workshop-Full-Day-Slides.pptx` is explicitly out of scope for this plan. The user handles it manually with the checklist.
+- Task 8 (peripheral updates) is the most complex after amendment — 6 files edited, ~20 Edit tool calls in total (5 for agenda, 4 for course-overview, 4 for wrap-up, 1 for session-02 cross-ref, 1 for session-05 cross-ref, 7 for Session 7 slide definitions in build-slides.py, 7 for peripheral slide references in build-slides.py).
+- All Edit tool calls have exact `old_string` values captured from the current file state as of the spec commit (`3eb8048`) plus the amendment grep on 2026-04-10. If the files have diverged since then, the Edit calls will fail and the executor must resolve the diff before continuing.
+- `Workshop-Full-Day-Slides.pptx` is explicitly out of scope for this plan because it's a generated file. The user regenerates it by running `build-slides.py` after Commit 3 lands. The `.pptx` can then be committed in a separate commit (or left uncommitted, depending on the user's preference for tracking generated artifacts).
 
 ---
 
