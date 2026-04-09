@@ -868,21 +868,35 @@ def main():
         "3:50 PM – 4:35 PM  •  Google Cloud Skills Boost", color=RED)
 
     build_content_slide(prs,
-        "What You'll Do in Lab 2",
+        "Lab 2 — Part 1: API, Chat & Grounding",
         [
-            "Use the google.genai Python library to connect to Gemini models",
-            "Send text prompts and receive responses programmatically",
-            "Set system instructions to control model behaviour",
-            "Build a multi-turn chat conversation with memory",
-            "Apply document grounding and search grounding via the API",
-            "Count tokens to understand context window usage and costs",
+            "Install google-genai and connect with genai.Client(vertexai=True, ...)",
+            "Build a chat() helper wrapping generate_content — observe knowledge cutoff limits",
+            "Manage chat_history as a list to enable multi-turn memory",
+            "Add system messages to ground the model's persona and behaviour",
+            "Upload a text file to Cloud Storage for document grounding",
+            "Enable the GoogleSearch tool for real-time web information",
+            "Explore the Google Maps tool for location-aware queries",
         ],
-        footer_text="Code is pre-written in notebooks — run cells and observe. Modify if you're comfortable."
+        footer_text="Code is pre-written — run cells and observe. Modify if you're comfortable."
+    )
+
+    build_content_slide(prs,
+        "Lab 2 — Part 2: Embeddings & Similarity",
+        [
+            "Generate embeddings using the gemini-embedding-001 model",
+            "Compare embeddings with L1 (Manhattan) and L2 (Euclidean) distance",
+            "Use Cosine similarity and Dot product for semantic comparison",
+            "Test: how similar are \"supercalifragilistic\" and its misspelling?",
+            "Compute similarity between a user query and a document chunk",
+            "This is the foundation of RAG — retrieve relevant chunks before prompting",
+        ],
+        footer_text="Embeddings + vector search = how production LLM apps ground answers in private data."
     )
 
     build_segue_slide(prs, ad_section_bg,
         "Switching to Google Cloud Skills Boost",
-        "Lab: Getting Started with Gen AI Library + Vertex AI Gemini API\nPython notebooks — follow along step by step"
+        "Lab: Getting Started with Gen AI Library + Vertex AI Gemini API\nintro_to_gemini-v1.0.0.ipynb — follow along step by step"
     )
 
     # ── SESSION 11: Wrap-Up ───────────────────────────────────

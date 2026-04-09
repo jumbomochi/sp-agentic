@@ -196,11 +196,13 @@ Act as a Google Apps Script developer. Write a script that:
 |-------|---------|
 | Lab activation | Participants activate lab; uses Python notebooks in the GCP environment |
 | The Gen AI library | Introduction to the `google.genai` Python client — connecting to Gemini models |
-| Basic text generation | Send prompts programmatically and receive responses |
-| System instructions | Set model behaviour and persona via the API |
-| Chat with memory | Build a multi-turn conversation that maintains context |
-| Grounding techniques | Document grounding and search grounding via the API |
-| Token counting | Understand context window usage and cost implications |
+| Basic chat function | Wrap `generate_content` in a `chat()` helper and observe model cutoff limits |
+| Chat history as memory | Manually manage a `chat_history` list to enable multi-turn conversations |
+| System messages | Use system instructions to ground the model's behaviour and persona |
+| Document grounding | Upload a file to Cloud Storage and use it as context for the model |
+| Google Search tool | Enable `GoogleSearch` as a built-in tool for real-time information |
+| Google Maps tool | Use the Maps tool for location-aware queries |
+| Embeddings & similarity | Generate text embeddings and compare them with L1, L2, Cosine, and Dot product distance metrics |
 
 **Instructor guidance for mixed audience:**
 - *Novice participants:* Follow along step-by-step in the provided notebook. Focus on understanding the pattern: connect → prompt → receive response. The code is pre-written — participants run cells and observe outputs.
@@ -288,20 +290,27 @@ Act as a Google Apps Script developer. Write a script that:
 
 ### Lab 2: Getting Started with Gen AI Library + Vertex AI Gemini API
 
-- **Source:** Application Development with LLMs on Google Cloud (Module 3 lab)
-- **Platform:** Google Cloud Skills Boost
+- **Source:** Application Development with LLMs on Google Cloud (Module 3 lab — `intro_to_gemini-v1.0.0.ipynb`)
+- **Platform:** Google Cloud Skills Boost (Jupyter notebook in Vertex AI Workbench)
 - **Duration:** 45 min guided
-- **Prerequisites:** Basic comfort reading Python (code is pre-written in notebooks)
+- **Prerequisites:** Basic comfort reading Python (code is pre-written in notebook cells — run and observe)
 - **What participants will do:**
-  - Use the `google.genai` Python library to connect to Gemini models
-  - Send text prompts and receive responses programmatically
-  - Set system instructions to control model behaviour
-  - Build a multi-turn chat conversation with memory
-  - Apply document grounding and search grounding via the API
-  - Count tokens to understand context window usage
+  - Install `google-genai` and connect to Gemini via `genai.Client(vertexai=True, ...)`
+  - Build a reusable `chat()` function that wraps `generate_content`
+  - Observe the model's knowledge cutoff and lack of real-time information
+  - Manage multi-turn conversations by maintaining a `chat_history` list
+  - Add system messages to ground the model's persona and behaviour
+  - Upload a text file to Cloud Storage and use it as document grounding context
+  - Enable the Google Search tool to give the model real-time web access
+  - Explore the Google Maps tool for location-aware queries
+  - Generate embeddings with `gemini-embedding-001` and compare them using L1, L2, Cosine, and Dot product similarity
+  - Compute similarity between a user query and a document chunk — the foundation of RAG search
 - **What participants will learn:**
-  - How to interact with Gemini models through code
-  - The role of system instructions, grounding, and chat memory in LLM applications
+  - How to interact with Gemini models through the Python API
+  - The role of system instructions, chat history, and grounding in LLM applications
+  - How LLMs handle knowledge cutoffs and multilingual queries
+  - Why embeddings and vector similarity are the building blocks of RAG systems
+- **Setup note:** The lab includes a step that creates a Google Cloud Storage bucket (e.g., `gs://<project-id>-gemini`) and uploads a context file. This adds ~2 minutes but is handled by the notebook — just run the cell.
   - How the concepts from the morning (prompting, grounding, memory) translate to API calls
 
 ### Remaining Labs for Self-Study
