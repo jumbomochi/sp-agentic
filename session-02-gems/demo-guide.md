@@ -84,11 +84,19 @@ Point these out to the class:
 1. Click **Gems** in the left sidebar of [gemini.google.com](https://gemini.google.com)
 2. Click **Create a Gem** (or **New Gem**, depending on UI version)
 
-> "Every Gem has three parts: a name, instructions, and optional knowledge files. The instructions are where the magic happens."
+> "Every Gem has a name, a short description, instructions, and optional knowledge files. The instructions are where the magic happens — but the description is what you'll thank yourself for later when you have 10 Gems and can't remember which is which."
 
-**Step 2.2 — Name the Gem (15 sec)**
+**Step 2.2 — Name and describe the Gem (30 sec)**
 
 Enter the name: **"ST0001 Assignment Feedback"**
+
+Enter the description:
+
+```
+Provides constructive, rubric-aligned feedback on ST0001 Statistics I assignments. Scores the four rubric criteria, quotes specific student work, and suggests next steps — under 400 words, encouraging tone.
+```
+
+> "The description is how future-you (and anyone you share the Gem with) knows what it does without opening it up. Think of it like a file summary."
 
 **Step 2.3 — Write the instructions (5 min)**
 
