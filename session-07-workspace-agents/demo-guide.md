@@ -54,7 +54,7 @@ A: Several options are available: (1) Attend the weekly consultation sessions, (
 
 **Document 2: "ST0001 Module Schedule"** (Google Sheet)
 
-Use the CSV from `session-06-apps-script/sample-data/module-schedule.csv` — import it into a Google Sheet named "ST0001 Module Schedule" and share it to the same Drive folder.
+Use the CSV from `../session-06-apps-script/sample-documents/module-schedule.csv` — import it into a Google Sheet named "ST0001 Module Schedule" and share it to the same Drive folder.
 
 ### 3. Pre-Build a Demo Agent (Optional Safety Net)
 
@@ -86,6 +86,39 @@ Draw or show this comparison:
 **For Copilot Studio users:**
 
 > "If you've built chatbots in Copilot Studio, Workspace Studio Agents are conceptually similar. Copilot Studio connects to Power Platform data sources via connectors. Workspace Studio connects natively to Google Drive, Sheets, Docs, Gmail, and Calendar. Same idea — different ecosystem."
+
+---
+
+### Show the Problem First (3 min)
+
+**Goal:** Demonstrate why plain Gemini struggles with module-specific questions.
+
+**Step 1 — Open a fresh Gemini chat** (not a Gem, not an agent — just regular Gemini)
+
+**Step 2 — Ask a module-specific question:**
+
+```
+When is the final exam for ST0001 Statistics I at Singapore Polytechnic?
+```
+
+**Expected result:** Gemini will either:
+- Admit it doesn't have information about SP's specific module schedules
+- Make up a plausible-sounding date (hallucination)
+- Suggest the student check the SP website or Google Classroom
+
+**Step 3 — Try another one:**
+
+```
+What's the consultation time for ST0001 at SP?
+```
+
+Same problem. Gemini has no way to know.
+
+Point this out to the audience:
+
+> "Gemini is smart, but it doesn't know our specific module policies, schedules, or FAQ. If I tell a student 'just ask Gemini', they'll either get a wrong answer or a dead end."
+>
+> "What we need is a Gemini that *knows our documents*. That's what an agent does. Let me build one."
 
 ---
 
@@ -171,12 +204,47 @@ Expected: The agent should say it doesn't have that information and suggest cont
 
 > "Notice how the agent handles questions outside its knowledge. It doesn't make things up — it tells the student to check with the lecturer. That's the power of good instructions and grounded data sources."
 
-#### Step 5: Share the agent (2 min)
+#### Step 5: Iterate on the agent (3 min)
 
-1. Show how to share the agent with others
-2. Demonstrate that shared users can chat with it without seeing the instructions or data sources
+**Goal:** Show participants that agents are refinable, not one-shot builds.
 
-> "You've just built a student-facing assistant in about 10 minutes. No code, no infrastructure, no APIs. Students can access it through the Gemini interface, and you can update it by editing the FAQ document."
+Pick one thing that could be better from your test queries. Common examples:
+
+- The agent was too chatty → add "Keep answers to 2-3 sentences"
+- The agent didn't cite the source → add "Always mention which document the answer came from"
+- The agent gave advice beyond the FAQ → strengthen the constraint
+
+**Example edit:**
+
+1. Click the agent name → **Edit**
+2. Add this to the instructions:
+
+```
+## Additional Requirements
+
+- When answering, always cite which source you used (e.g., "According to the ST0001 FAQ..." or "Based on the Module Schedule...")
+- If a question can't be answered from your data sources, end with: "Please contact the lecturer at tan_wei_lin@sp.edu.sg or post in Google Classroom for a definitive answer."
+```
+
+3. Save and re-test with one of the previous queries
+
+> "Look at the difference. Now every answer is traceable back to a source. And when the agent doesn't know something, it gives the student a clear next step instead of leaving them stuck. Agents get better the more you use them."
+
+#### Step 6: Share the agent (2 min)
+
+1. Click the **Share** button (or the share icon)
+2. Add the email address of a colleague (or a shared workshop account) to grant access
+3. Show that shared users can chat with the agent but cannot see the instructions or data sources
+
+> "You've just built a student-facing assistant in about 12 minutes. No code, no infrastructure, no APIs. Students can access it through Gemini, and you can update it any time by editing the FAQ document."
+
+**Side-by-side comparison (1 min):**
+
+Recall the questions you asked at the start of the session ("When is the final exam?"). Compare:
+- Plain Gemini → generic, potentially wrong, no citations
+- Stats Module Assistant → specific, grounded in your docs, cites sources, handles boundaries gracefully
+
+> "Same underlying model. Same interface. But one is useful for students, and one isn't. The difference is grounding."
 
 ---
 

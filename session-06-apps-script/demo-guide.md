@@ -10,7 +10,7 @@
 ### 1. Prepare the Demo Spreadsheet
 
 1. Create a new Google Sheet named **"Apps Script Demo — Grade Notifications"**
-2. Import `sample-data/student-grades.csv` into a sheet tab named **"Student Grades"**
+2. Import `sample-documents/student-grades.csv` into a sheet tab named **"Student Grades"**
 3. Verify columns: Student ID | Student Name | Email | Module | CA Score | Exam Score | Final Grade | Status
 4. Leave the **Status** column (H) empty — the script will populate it
 
@@ -24,7 +24,7 @@
    - Comments (Paragraph)
    - Rating (1-5) (Linear scale)
 2. Link the form responses to a new Google Sheet named **"Apps Script Demo — Feedback Processor"**
-3. Pre-populate a few test responses using `sample-data/feedback-form-responses.csv` or submit through the form manually
+3. Pre-populate a few test responses using `sample-documents/feedback-form-responses.csv` or submit through the form manually
 
 ### 3. Open Gemini
 
@@ -307,7 +307,7 @@ After the exercise, briefly recap before moving to Session 7:
 ```
 session-06-apps-script/
 ├── demo-guide.md                              ← This file (instructor guide)
-├── sample-data/
+├── sample-documents/
 │   ├── student-grades.csv                     ← Import into Demo 1 spreadsheet
 │   ├── module-schedule.csv                    ← Reference data for exercises
 │   └── feedback-form-responses.csv            ← Pre-populate Demo 2 form responses
