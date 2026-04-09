@@ -17,7 +17,7 @@
 | **Customising AI** | Created Gems with persona, task, and grounding instructions | Session 2 |
 | **Researching with AI** | Saw how NotebookLM grounds responses in your own documents | Session 5 |
 | **Automating with AI** | Used Gemini to generate Apps Script — automations that run without you | Session 6 |
-| **Building with AI** | Created a Workspace Studio Agent — a no-code assistant with live data | Session 7 |
+| **Building with AI** | Built a Workspace Studio Flow — a no-code automation with Gemini as a first-class step | Session 7 |
 | **Developing with AI** | Used Vertex AI Studio and the Gemini API to test and call models programmatically | Sessions 9–10 |
 
 > "You went from typing a prompt in a chat box to calling an API in Python. That's a significant range in one day."
@@ -30,7 +30,7 @@
 >
 > - Gems: you grounded them with knowledge files and instructions
 > - NotebookLM: it's entirely grounded in your uploaded sources
-> - Workspace Agents: grounded in live Drive documents
+> - Workspace Flows: the `Ask Gemini` step is grounded on the trigger event data (emails, sheet rows, form responses)
 > - Apps Script: grounded in your spreadsheet data
 > - Vertex AI Studio: you saw system prompts and document grounding
 > - Gemini API: you applied the same grounding concepts in code
@@ -41,7 +41,7 @@
 
 ## 3. Quick Wins for Monday (3 min)
 
-> "You don't need to build an agent on Monday. Start with these:"
+> "You don't need to build a flow on Monday. Start with these:"
 
 ### Win 1: Create one Gem for a task you do every week
 - Feedback writing, email drafting, meeting summary formatting
@@ -65,7 +65,7 @@ Ask participants to write down (on paper or in a Google Doc):
 > "Think about one automation or AI assistant you'd like to build for your role. Write down:"
 
 1. **What task would it handle?** (e.g., "Answer student FAQs about module policies")
-2. **Which tool would you use?** (Gem / Apps Script / Workspace Agent / Vertex AI)
+2. **Which tool would you use?** (Gem / Apps Script / Workspace Flow / Vertex AI)
 3. **What data sources would it need?** (e.g., FAQ doc, grade sheet, schedule)
 4. **What's the first step you'd take?** (e.g., "Create the FAQ document in Google Drive")
 

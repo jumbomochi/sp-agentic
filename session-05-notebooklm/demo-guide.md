@@ -104,7 +104,7 @@ Briefly mention enterprise features:
 > "I'd encourage you to try it after today's workshop. Upload a set of materials for one of your modules and see what it can do."
 
 **Transition to lunch:**
-> "That wraps up the morning. After lunch, we shift from *using* AI to *building* with AI — starting with Apps Script automations and then Workspace Studio Agents."
+> "That wraps up the morning. After lunch, we shift from *using* AI to *building* with AI — starting with Apps Script automations and then no-code Workspace Studio Flows."
 
 ---
 

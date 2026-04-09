@@ -9,7 +9,7 @@
 
 ## Course Overview
 
-This course bridges **everyday AI productivity** (Gemini in Workspace) with **LLM application development on Google Cloud** (Vertex AI Studio, prompt engineering, and the Gemini API), tailored for educators and staff in a mathematics/analytics context. Participants leave with hands-on experience using Gemini across Workspace apps, creating custom Gems, building no-code agents in Workspace Studio, generating Apps Script automations with AI, and hands-on lab experience with Vertex AI Studio and the Gemini API on Google Cloud.
+This course bridges **everyday AI productivity** (Gemini in Workspace) with **LLM application development on Google Cloud** (Vertex AI Studio, prompt engineering, and the Gemini API), tailored for educators and staff in a mathematics/analytics context. Participants leave with hands-on experience using Gemini across Workspace apps, creating custom Gems, automating across Workspace with no-code flows in Workspace Studio, generating Apps Script automations with AI, and hands-on lab experience with Vertex AI Studio and the Gemini API on Google Cloud.
 
 ---
 
@@ -128,26 +128,25 @@ Act as a Google Apps Script developer. Write a script that:
 - Handle errors gracefully
 ```
 
-#### Session 7: Workspace Studio Agents (45 min)
+#### Session 7: Workspace Studio Flows (45 min)
 
 | Topic | Details |
 |-------|---------|
-| What are Workspace Studio Agents | No-code AI agents that live inside Google Workspace |
-| How they differ from Gems | Gems = custom prompts; Agents = multi-step workflows with actions |
-| Agent capabilities | Can search Drive, read emails, query Sheets, take actions on your behalf |
-| Building your first agent | Step-by-step walkthrough in Workspace Studio |
-| Configuring instructions | Defining the agent's role, constraints, and workflow |
-| Adding data sources | Connecting Drive folders, Sheets, or other Workspace data |
-| Adding actions | What the agent can do (send emails, create docs, update sheets) |
-| Testing and sharing | Testing the agent, sharing with your team |
+| What are Workspace Studio Flows | No-code, event-driven automations built in a visual pipeline — native to Google Workspace |
+| How they differ from Apps Script and Gems | Code-free alternative to Apps Script; built-in `Ask Gemini` step instead of Gems' chat persona |
+| Trigger catalogue | Gmail, Chat, Sheets, Drive, Docs, Meet, Calendar, Forms, schedules |
+| The `Ask Gemini` step | A first-class LLM step inside the flow — custom prompts and pre-built AI skills (Recap, Extract, Decide, Summarize) |
+| Composing actions | Gmail, Chat, Sheets, Docs, Tasks, Drive, plus control flow (`Check if`, `Filter`) |
+| Live build: Intelligent Inbox Triage | Step-by-step walkthrough of a 5-node flow that classifies incoming emails with Gemini and pings Chat for urgent ones |
+| Testing and enabling | Saving, enabling, and test-triggering flows; iterating on the Ask Gemini prompt |
 
-**Hands-on Exercise (20 min):** Build a "Student Query Agent" that:
+**Hands-on Exercise (20 min):** Build an Intelligent Inbox Triage flow — or pick one of three tiered scenarios from the demo guide:
 
-- Has access to a FAQ document and a module schedule sheet
-- Can answer common student questions about deadlines, module content, and policies
-- Provides grounded answers with references to source documents
+- *Beginner:* Morning Inbox Digest (scheduled `Recap unread emails` → `Notify in Chat`)
+- *Intermediate:* Email-to-Task Extractor (`Ask Gemini` extracts deadlines from incoming emails and creates Google Tasks)
+- *Advanced:* Student Query Router (multi-branch classification and Chat routing)
 
-**Bridge for Copilot Studio users:** Copilot Studio uses Power Platform connectors; Workspace Studio uses native Workspace integrations. Same concept, different ecosystem.
+**Bridge for Copilot Studio users:** Workspace Studio Flows are conceptually equivalent to Power Automate with built-in Copilot steps — visual, event-driven, no-code automation where AI is a first-class step inside the pipeline.
 
 ---
 
@@ -217,7 +216,7 @@ Act as a Google Apps Script developer. Write a script that:
 
 | Topic | Details |
 |-------|---------|
-| Recap of the day | Gemini productivity → Gems → Apps Script → Workspace Agents → Vertex AI Studio → Gemini API |
+| Recap of the day | Gemini productivity → Gems → Apps Script → Workspace Flows → Vertex AI Studio → Gemini API |
 | The spectrum you experienced | Using AI → Customising AI → Automating with AI → Developing with AI on GCP |
 | Quick wins to implement Monday | 3 things each participant can do immediately |
 | Action planning | Each participant writes down 1 automation or application they want to build for their role |
@@ -234,7 +233,7 @@ Act as a Google Apps Script developer. Write a script that:
 | NotebookLM trimmed to demo only | Freed 15 min for labs; participants can explore independently |
 | Gems trimmed from 60→45 min | Deep Research and Canvas covered together; freed 15 min for labs |
 | Apps Script via Gemini generation | Removes coding barrier; participants prompt for code rather than write it |
-| Workspace Studio Agents as a separate block | Key bridge between "using AI" and "building with AI" |
+| Workspace Studio Flows as a separate block | Pairs with Session 6 as the no-code counterpart to code-based automation; bridges "using AI" to "building with AI" |
 | Two labs instead of one | Vertex AI Studio UI (no-code) followed by Gemini API (Python) creates a natural progression from playground to code |
 | Vertex AI Studio lab first | No-code entry point builds confidence before the Python-based lab |
 | Lecture before labs (Session 8→9→10) | Conceptual framing of Vertex AI and prompt engineering makes both labs more meaningful |
@@ -262,7 +261,7 @@ Act as a Google Apps Script developer. Write a script that:
 | Gems | Follow guided template | Design from scratch with knowledge files |
 | Sheets | Generate tables, simple formulas | Use =AI() function, complex analysis |
 | Apps Script | Paste and run pre-generated script | Modify generated scripts, add triggers |
-| Workspace Agents | Build from template with guided steps | Configure custom actions and multi-source grounding |
+| Workspace Flows | Build the Inbox Triage demo flow with guided steps | Build a custom multi-branch flow with conditional logic and tighter Ask Gemini prompts |
 | Vertex AI Studio Lab | Explore freeform prompts, try Prompt Gallery | Experiment with system instructions, parameters, Get Code |
 | Gemini API Lab | Run pre-written notebook cells, observe outputs | Modify code, try different models, explore embeddings |
 

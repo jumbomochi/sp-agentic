@@ -550,7 +550,7 @@ def main():
             "...to developing LLM-powered applications on Google Cloud",
             "Hands-on exercises at every stage — beginner and intermediate tracks",
             "No prior coding experience required for most sessions",
-            "By end of day: Gems, Apps Script, Workspace Agents, Vertex AI, Gemini API",
+            "By end of day: Gems, Apps Script, Workspace Flows, Vertex AI, Gemini API",
         ]
     )
 
@@ -567,12 +567,12 @@ def main():
     )
 
     build_content_slide(prs,
-        "From Assistants to Agents — The AI Maturity Spectrum",
+        "From Prompts to Applications — The AI Maturity Spectrum",
         [
             "Level 1 — Prompting: Ask Gemini to draft an email about the CA test",
             "Level 2 — Customising: Create a Gem with persona and instructions for reuse",
-            "Level 3 — Automating: Apps Script sends personalised grade emails automatically",
-            "Level 4 — Building Agents: No-code Workspace Agent answers student FAQs from your docs",
+            "Level 3 — Code Automation: Apps Script sends personalised grade emails",
+            "Level 4 — No-Code Pipelines: Workspace Flows compose Ask Gemini with Gmail, Chat, Sheets",
             "Level 5 — Developing Apps: Gemini API via Python for custom applications",
         ],
         footer_text="Today we touch every level on this spectrum."
@@ -582,7 +582,7 @@ def main():
         "Using Gemini Responsibly in Education",
         [
             "Hallucination: LLMs can present incorrect information confidently — always verify",
-            "Grounding: Constraining AI to known documents reduces hallucination (NotebookLM, Agents, Vertex AI)",
+            "Grounding: Constraining AI to known documents reduces hallucination (NotebookLM, Flows, Vertex AI)",
             "Academic integrity: AI is a tool for educators, not a shortcut for students",
             "Data privacy: Do NOT paste student personal data into the public Gemini app",
             "Google Workspace with Gemini has enterprise data protections — but check your institution's policy",
@@ -639,7 +639,7 @@ def main():
     )
 
     build_two_column_slide(prs,
-        "NotebookLM vs. Gems vs. Workspace Agents",
+        "NotebookLM vs. Gems",
         [
             "Custom prompt template",
             "Upload static knowledge files",
@@ -738,74 +738,74 @@ def main():
         color=YELLOW
     )
 
-    # ── SESSION 7: Workspace Studio Agents ────────────────────
+    # ── SESSION 7: Workspace Studio Flows ────────────────────
     build_section_header(prs, gw_section_bg, 7,
-        "Workspace\nStudio Agents",
+        "Workspace\nStudio Flows",
         "1:45 PM – 2:30 PM", color=YELLOW)
 
     build_content_slide(prs,
-        "What are Workspace Studio Agents?",
+        "What are Workspace Studio Flows?",
         [
-            "No-code AI agents that live inside Google Workspace",
-            "Like Gems — but with the ability to take actions and access live data",
-            "Can search Drive, read emails, query Sheets, and act on your behalf",
-            "Grounded in your documents — reducing hallucination",
-            "Shareable with your team — anyone can chat with the agent",
+            "No-code, event-driven automations built in a visual pipeline",
+            "Trigger → AI step → Actions — compose Gemini reasoning with Workspace apps",
+            "13 triggers across Gmail, Chat, Sheets, Drive, Forms, Meet, Calendar, schedules",
+            "20+ actions: Ask Gemini, Gmail, Chat, Sheets, Docs, Tasks, control flow",
+            "Like Power Automate with Copilot steps — native to Google Workspace",
         ]
     )
 
     build_two_column_slide(prs,
-        "Gems vs. Workspace Studio Agents",
+        "Apps Script vs. Workspace Studio Flows",
         [
-            "Custom prompt template",
-            "Static knowledge files",
-            "Text output only",
-            "Good for: repetitive formatting tasks",
-            "Example: \"Feedback Writer\" Gem",
+            "Code (JavaScript)",
+            "Gemini generates the code for you",
+            "Complex logic, full control",
+            "AI calls require explicit API usage",
+            "Example: Grade emailer script",
         ],
         [
-            "AI assistant with actions",
-            "Live connections to Drive, Sheets, Gmail",
-            "Can search, read, summarise, draft",
-            "Good for: Q&A, lookup, multi-step tasks",
-            "Example: \"Student FAQ Assistant\" agent",
+            "No code — visual drag-and-configure",
+            "Ask Gemini is a first-class step",
+            "Event-driven pipelines across apps",
+            "AI reasoning composed inline with actions",
+            "Example: Intelligent Inbox Triage flow",
         ],
-        left_header="Gems",
-        right_header="Workspace Studio Agents"
+        left_header="Apps Script (Session 6)",
+        right_header="Workspace Studio Flows (Session 7)"
     )
 
     build_content_slide(prs,
-        "Live Build: Stats Module Assistant",
+        "Live Build: Intelligent Inbox Triage",
         [
-            "Step 1: Create a new agent in Gemini → Gems and agents",
-            "Step 2: Write instructions — role, constraints, tone",
-            "Step 3: Add data sources — FAQ document + module schedule from Drive",
-            "Step 4: Test with queries — FAQ lookup, schedule check, boundary test",
-            "Step 5: Share the agent with others",
+            "Trigger: When I get an email (filtered by [DEMO] subject)",
+            "Step 1: Ask Gemini — classify + extract (custom prompt)",
+            "Step 2: Check if — only continue for urgent cases",
+            "Step 3: Notify me in Chat — formatted summary with extracted fields",
+            "Step 4: Add labels — apply Urgent-Student to the email",
         ],
-        footer_text="10 minutes from blank agent to working student assistant. No code."
+        footer_text="5 nodes. 1 prompt. 1 filter. No code — just a visual pipeline with Gemini in the middle."
     )
 
     build_content_slide(prs,
-        "Writing Good Agent Instructions",
+        "Writing the Ask Gemini Prompt",
         [
-            "Define the role: \"You are a helpful assistant for students in ST0001\"",
-            "Set constraints: \"Never make up dates or policies — only use your data sources\"",
-            "Handle boundaries: \"If asked about other modules, politely explain you only cover ST0001\"",
-            "Set tone: \"Friendly and supportive — like a helpful senior student\"",
-            "Keep it concise: \"2-3 sentences when possible, longer only if needed\"",
+            "Define the role: \"You are an email triage assistant for a SP lecturer\"",
+            "Give a closed set of categories — explicit choices beat open-ended ones",
+            "Demand a rigid output format — every field on its own line",
+            "The next step reads your output programmatically — format drift breaks the flow",
+            "Iterate on the prompt, not on code — save, resend, watch it work",
         ],
-        footer_text="The same instruction-writing skills apply to system prompts in Vertex AI."
+        footer_text="Same prompt-engineering discipline as Gems (Session 2) and =AI() cells (Session 3)."
     )
 
     build_exercise_slide(prs,
-        "Build Your Own Workspace Agent (20 min)",
+        "Build Your Own Flow (20 min)",
         [
-            "Option A (Recommended): Build the Stats Module Assistant using the pre-prepared FAQ and schedule",
-            "Option B: Build an administrative assistant — room booking, event planning, or HR policy Q&A",
-            "Option C (Advanced): Build a revision coach grounded in actual lecture notes",
-            "Test with at least 3 queries, including one the agent shouldn't answer",
-            "Share with a neighbour and have them try to break it",
+            "Beginner: Morning Inbox Digest (On a schedule → Recap unread emails → Notify in Chat)",
+            "Intermediate: Email-to-Task Extractor (Ask Gemini extracts deadlines, creates Google Tasks)",
+            "Advanced: Student Query Router (multi-branch classification and Chat routing)",
+            "Fallback: Bring your own use case — describe it in the Discover bar",
+            "Test-trigger your flow, iterate on the prompt, share if you like it",
         ],
         color=YELLOW
     )
@@ -912,7 +912,7 @@ def main():
             ["Customising AI", "Created Gems with persona and instructions", "2"],
             ["Researching with AI", "Saw NotebookLM grounded in your documents", "5"],
             ["Automating with AI", "Generated Apps Script automations", "6"],
-            ["Building with AI", "Created a no-code Workspace Agent", "7"],
+            ["Building with AI", "Built a no-code Workspace Flow", "7"],
             ["Developing with AI", "Used Vertex AI Studio and the Gemini API", "9–10"],
         ]
     )
@@ -922,7 +922,7 @@ def main():
         [
             "Gems: grounded with knowledge files and instructions",
             "NotebookLM: entirely grounded in your uploaded sources",
-            "Workspace Agents: grounded in live Drive documents",
+            "Workspace Flows: the Ask Gemini step is grounded in the trigger event data",
             "Apps Script: grounded in your spreadsheet data",
             "Vertex AI Studio: system prompts and document grounding",
             "Gemini API: same grounding concepts applied in code",
@@ -943,7 +943,7 @@ def main():
         "Action Planning",
         [
             "What task would you like to automate or build an AI assistant for?",
-            "Which tool would you use? (Gem / Apps Script / Workspace Agent / Vertex AI)",
+            "Which tool would you use? (Gem / Apps Script / Workspace Flow / Vertex AI)",
             "What data sources would it need? (FAQ doc, grade sheet, schedule...)",
             "What's the first step you'd take?",
         ],

@@ -378,7 +378,7 @@ After the exercise, briefly recap before moving to the next session:
 3. **Be explicit about format** — vague instructions give vague output
 4. **Iterate, don't agonise** — save the first version, test it, refine based on real outputs
 5. **Knowledge files ground the Gem** — use them to give the Gem reference materials like rubrics, style guides, or FAQ documents
-6. **This connects forward** — the same instruction-writing discipline powers Workspace Studio Agents (Session 7) and Vertex AI system prompts (Session 8+)
+6. **This connects forward** — the same instruction-writing discipline powers the `Ask Gemini` step in Workspace Studio Flows (Session 7) and Vertex AI system prompts (Session 8+)
 
 ---
 
