@@ -1,7 +1,7 @@
-# Session 7: Workspace Studio Agents — Demo Guide
+# Session 7: Workspace Studio Flows — Demo Guide
 
 **Duration:** 45 min (25 min demo/walkthrough + 20 min hands-on exercise)
-**Instructor materials:** This guide, sample FAQ document, sample module schedule sheet
+**Instructor materials:** This guide, test email templates (`sample-documents/test-emails.md`), slide deck
 
 ---
 
@@ -9,248 +9,261 @@
 
 ### 1. Verify Workspace Studio Access
 
-1. Go to [gemini.google.com](https://gemini.google.com) and sign in with the workshop Google Workspace account
-2. In the left sidebar, look for **Gems and agents** or navigate to the Agents section
-3. If you don't see an option to create agents, the Workspace admin needs to enable it:
-   - Admin Console → Apps → Google Workspace → Gemini → Agent settings → Enable agent creation
+1. Open [https://studio.workspace.google.com/](https://studio.workspace.google.com/) in a browser signed in with the workshop Google Workspace account.
+2. Verify the Discover page loads and shows:
+   - A "Describe a task for Gemini" input field
+   - A `+` button in the left sidebar (tooltip: "New flow")
+   - A "My flows" tab in the left sidebar
+3. If the page does not load or shows an access-denied error, the Workspace admin needs to enable Workspace Studio for the account. Admin Console → Apps → Google Workspace → Gemini → Studio → Enable.
 
-### 2. Prepare the Grounding Documents
+### 2. Prepare Gmail label and Chat notification target
 
-Create these in Google Drive before the workshop:
+1. In Gmail, create a new label:
+   - Settings → See all settings → Labels → **Create new label**
+   - Label name: **`Urgent-Student`** (exact spelling — the flow references this string)
+2. Verify you can receive a `Notify me in Chat` message:
+   - Open Google Chat
+   - Either use a DM-with-self space, or create a dedicated **`Workshop Test`** space
+   - Note the space name — you'll select it as the target in Step E of the live build
 
-**Document 1: "ST0001 Statistics I — Module FAQ"** (Google Doc)
+### 3. Build and disable a backup flow
 
-Copy the following into a Google Doc:
+Build the complete Intelligent Inbox Triage flow once in advance (follow the Live Build section below), then disable it. Name it **`Intelligent Inbox Triage (backup)`**. Keep it disabled until needed as a fallback if the live build breaks.
 
----
+### 4. Prepare test emails
 
-**ST0001 Statistics I — Frequently Asked Questions**
+Open `sample-documents/test-emails.md` and keep it accessible during the demo. Two templates are needed for the live walkthrough:
 
-**Q: What is the grading breakdown for this module?**
-A: Continuous Assessment (CA) accounts for 40% of your final grade. The final examination accounts for 60%. CA comprises two in-class tests (15% each) and tutorial participation (10%).
+- **Test Email #1 — Urgent student** (for the main trigger)
+- **Test Email #2 — Positive feedback** (for the iteration beat)
 
-**Q: When is the final examination?**
-A: The final examination for ST0001 Statistics I is scheduled for 15 May 2026, 9:00 AM at the Sports Hall. Please arrive 15 minutes early with your student ID.
+Have these ready to send from your phone or a second browser account. Sending from a different device makes the "live fire" feel more authentic — participants see the email arrive as an external event rather than something you typed into the same tab.
 
-**Q: What topics does the final exam cover?**
-A: The final exam covers all topics from Weeks 1–8: Descriptive Statistics, Probability, Probability Distributions, Sampling Distributions, Hypothesis Testing, Confidence Intervals, Correlation, and Linear Regression.
+### 5. Verify `Check if` semantics (one-time investigation)
 
-**Q: How do I book a consultation session with the lecturer?**
-A: Consultation sessions are available on Tuesdays from 3:00 PM to 5:00 PM in Staff Room 5. Book via the online booking form linked on the module's Google Classroom page, or email the lecturer directly.
+On a throwaway flow, add a `Check if` step and click through its configuration to determine:
 
-**Q: I missed a CA test. Can I take a make-up test?**
-A: Make-up tests are only granted with valid medical certificates or approved Leave of Absence documentation. Submit your request through the Student Portal within 3 working days of the missed test.
+- Does it branch (then/else paths), or does it act as a gate (halt flow if false)?
+- Does it support structured field matching on the previous step's output, or only substring matching?
 
-**Q: What calculator is allowed during exams?**
-A: Only non-programmable scientific calculators are permitted. Graphing calculators and any device with wireless capability are not allowed. The approved list is posted on the module's Google Classroom.
-
-**Q: Where can I find the lecture notes and tutorial materials?**
-A: All lecture notes are uploaded to Google Classroom before each lecture. Tutorial worksheets are uploaded by Friday of the preceding week. Past-year papers are available in the "Resources" section.
-
-**Q: I'm struggling with the module. What support is available?**
-A: Several options are available: (1) Attend the weekly consultation sessions, (2) Visit the Math Learning Centre (Block T16, Level 3) for drop-in peer tutoring, (3) Form a study group — the lecturer can help match you with classmates, (4) Use NotebookLM to create a study hub from your lecture notes.
-
----
-
-**Document 2: "ST0001 Module Schedule"** (Google Sheet)
-
-Use the CSV from `../session-06-apps-script/sample-documents/module-schedule.csv` — import it into a Google Sheet named "ST0001 Module Schedule" and share it to the same Drive folder.
-
-### 3. Pre-Build a Demo Agent (Optional Safety Net)
-
-Build the demo agent in advance so you have a working version to show if the live build encounters issues. Follow the demo steps below. Name it "Stats Module Assistant (backup)".
+Note the answers — you'll need them when configuring Step D of the live build. If the answer is "substring matching only", the instructions below already accommodate that; if structured matching is available, use it for cleaner configuration.
 
 ---
 
 ## Demo Flow
 
-### Opening Context (3 min) — Transition from Session 6
+### Opening Context (3 min) — No screen share needed
 
-> "In the last session, you used Gemini to generate Apps Script — code that automates tasks across Workspace apps. But what if you don't want code at all? What if you want an AI assistant that can answer questions, look up information, and take actions — all without writing a single line?"
+**Key talking points:**
+
+> "In Session 6, you just watched Gemini write Apps Script for you — JavaScript code that runs in the background and automates your grading workflow. That's powerful, but it's still code: you have to read it, trust it, paste it, authorise it, and debug it when something goes wrong."
 >
-> "That's what **Workspace Studio Agents** give you. Think of them as Gems with superpowers. A Gem is a custom prompt. An agent is a custom prompt that can also *do things* — search your Drive, read your Sheets, send emails."
+> "In this session, we're going to build the same kind of automation — but without a single line of code. And with AI as a first-class step inside the pipeline, not something you have to call from an API."
+>
+> "The product is called **Workspace Studio Flows** — it lives at `studio.workspace.google.com`. If you've ever used Microsoft Power Automate with Copilot steps, Zapier, or IFTTT, this will feel instantly familiar: triggers, actions, visual builder. The difference is that Workspace Studio is native to Google Workspace, so it sees your Gmail, Sheets, Drive, Docs, Chat, Meet, and Calendar without any connectors or auth headaches."
 
-### Gems vs. Agents Comparison (2 min)
+**For Copilot Studio / Power Automate users:**
 
-Draw or show this comparison:
+> "Workspace Studio Flows are conceptually equivalent to Power Automate with built-in Copilot steps. Both are visual, event-driven, no-code, cross-app within their ecosystems — and both let you treat AI as one configurable step inside a larger pipeline."
 
-| | Gems | Workspace Studio Agents |
-|---|------|------------------------|
-| **What it is** | Custom prompt template | AI assistant with actions |
-| **Grounding** | Knowledge files uploaded once | Live connection to Drive, Sheets, Gmail |
-| **Can take actions** | No — text output only | Yes — search, read, summarise, draft |
-| **Memory** | Within a conversation | Within a conversation |
-| **Sharing** | Share the Gem | Share the agent |
-| **Analogy** | A knowledgeable colleague | A knowledgeable colleague with access to your filing cabinet |
+---
 
-**For Copilot Studio users:**
+### Gems / Apps Script / Flows — Comparison (2 min)
 
-> "If you've built chatbots in Copilot Studio, Workspace Studio Agents are conceptually similar. Copilot Studio connects to Power Platform data sources via connectors. Workspace Studio connects natively to Google Drive, Sheets, Docs, Gmail, and Calendar. Same idea — different ecosystem."
+Display this table on screen (or on a slide):
+
+| | **Gems** | **Apps Script (Session 6)** | **Workspace Studio Flows (Session 7)** |
+|---|---|---|---|
+| **What it is** | A custom prompt for chat | Code that runs on events or schedules | A visual, event-driven pipeline with AI steps |
+| **How you build it** | Describe a persona and instructions | Ask Gemini to write JavaScript for you | Drag and configure steps in a visual builder |
+| **Where AI lives** | The entire experience *is* the AI | External — you call the API if you need AI inside a script | Built-in `Ask Gemini` step you drop into the flow |
+| **Triggered by** | You, manually, in chat | Menu clicks, time schedules, form submits | Gmail, Chat, Sheets, Drive, Forms, Meet, Calendar events, or schedules |
+| **Best for** | Custom reasoning on ad-hoc queries | Complex logic, unusual integrations, full control | Cross-app automation where AI reasoning is one step among many |
+
+> "These three tools aren't competing — they cover different territories. Use Gems when you want custom chat. Use Apps Script when you need full control over complex logic. Use Flows when you want to glue apps together with some AI reasoning in the middle, without writing code."
 
 ---
 
 ### Show the Problem First (3 min)
 
-**Goal:** Demonstrate why plain Gemini struggles with module-specific questions.
+**Goal:** Make the audience *feel* the problem before showing the solution.
 
-**Step 1 — Open a fresh Gemini chat** (not a Gem, not an agent — just regular Gemini)
+1. Switch to Gmail and show your (or a demo account's) inbox.
+2. Scroll through a few recent emails. Point out the mix: urgent student emails, admin notifications, newsletters, personal emails.
 
-**Step 2 — Ask a module-specific question:**
-
-```
-When is the final exam for ST0001 Statistics I at Singapore Polytechnic?
-```
-
-**Expected result:** Gemini will either:
-- Admit it doesn't have information about SP's specific module schedules
-- Make up a plausible-sounding date (hallucination)
-- Suggest the student check the SP website or Google Classroom
-
-**Step 3 — Try another one:**
-
-```
-What's the consultation time for ST0001 at SP?
-```
-
-Same problem. Gemini has no way to know.
-
-Point this out to the audience:
-
-> "Gemini is smart, but it doesn't know our specific module policies, schedules, or FAQ. If I tell a student 'just ask Gemini', they'll either get a wrong answer or a dead end."
+> "Look at this. Every one of these emails gets the same treatment — a notification, a bold subject line, a spot in my inbox. But they're not all the same. A student emailing at midnight because they're failing a module is not the same as a weekly newsletter from the staff bulletin."
 >
-> "What we need is a Gemini that *knows our documents*. That's what an agent does. Let me build one."
+> "I could spend an hour every morning triaging this manually. Or I could write an Apps Script that parses subject lines with regex and applies labels — but what counts as 'urgent' isn't something regex can decide. It requires judgement."
+>
+> "What if Gemini triaged every incoming email for me — read it, decided what it was about, and pinged me in Chat only for the urgent ones? No code. No API keys. Just a visual flow with Gemini as one of the steps. Let me show you."
+
+Switch to `studio.workspace.google.com`.
 
 ---
 
-### Live Build: "Stats Module Assistant" (15 min)
+### Live Build: Intelligent Inbox Triage (13 min)
 
-#### Step 1: Create a new agent (2 min)
+**What participants will see:** A complete 5-node flow built from scratch in Workspace Studio. When the instructor sends themselves an email, the flow fires, classifies the email using Gemini, and pings Chat for urgent ones.
 
-1. Go to [gemini.google.com](https://gemini.google.com)
-2. In the left sidebar, click **Gems and agents** (or the agent creation entry point)
-3. Click **Create agent** (or **New agent**)
-4. Set the name: **Stats Module Assistant**
-
-> "Just like Gems, agents start with a name. But the next step is where agents diverge from Gems."
-
-#### Step 2: Write the agent instructions (3 min)
-
-In the instructions field, enter:
+**The flow at a glance:**
 
 ```
-You are a helpful assistant for students enrolled in ST0001 Statistics I at Singapore Polytechnic, School of Mathematical Sciences and Analytics.
-
-Your role:
-- Answer student questions about the module: grading, schedule, exam details, resources, and support options
-- Always base your answers on the FAQ document and module schedule provided in your data sources
-- If you don't know the answer, say so clearly and suggest the student contact the lecturer or visit the module's Google Classroom page
-- Be friendly, concise, and encouraging
-
-Your constraints:
-- Never make up dates, grades, or policies — only use information from your data sources
-- Do not provide academic advice beyond what's in the FAQ (e.g., don't recommend study strategies unless the FAQ mentions them)
-- If asked about other modules, politely explain that you only have information about ST0001
-
-Your tone:
-- Friendly and supportive — like a helpful senior student
-- Use simple, clear language
-- Keep answers concise — 2-3 sentences when possible, longer only if the question requires detail
+[Trigger]  When I get an email  (filtered: subject contains "[DEMO]")
+    ↓
+[Step 1]   Ask Gemini            (classify + extract — custom prompt)
+    ↓
+[Step 2]   Check if              (classification == "URGENT_STUDENT")
+    ↓
+[Step 3]   Notify me in Chat     (formatted summary with extracted fields)
+    ↓
+[Step 4]   Add labels            (apply "Urgent-Student" label)
 ```
 
-> "These instructions are the agent's personality and guardrails. Notice we're being very explicit about what it can and can't do. This is the same principle as system prompts — which we'll see again in the Vertex AI labs later."
+#### Step A: Create the flow (1 min)
 
-#### Step 3: Add data sources (3 min)
+1. At `studio.workspace.google.com`, click the **`+`** button in the top-left sidebar (tooltip: "New flow").
+2. You land on an empty flow canvas with a "Choose a starter" prompt on the right.
+3. At the top of the canvas, click the "Untitled flow" name field and rename to: **`Intelligent Inbox Triage`**.
 
-1. Click **Add data source** (or equivalent)
-2. Select **Google Drive**
-3. Browse to and select the "ST0001 Statistics I — Module FAQ" Google Doc
-4. Add the "ST0001 Module Schedule" Google Sheet as a second data source
+#### Step B: Configure the trigger (2 min)
 
-> "This is the key difference from Gems. The agent doesn't just have a static knowledge file — it has a live connection to these documents. If you update the FAQ, the agent picks up the changes."
+1. In the "Choose a starter" panel, select **`When I get an email`**.
+2. In the trigger configuration:
+   - Set **Subject contains:** `[DEMO]`
+   - Leave other filters blank
 
-#### Step 4: Test the agent (5 min)
+> "This filter matters a lot. Without it, this flow would fire on *every single email* I receive during the next 45 minutes of workshop, and I'd get a Chat notification for every newsletter and spam that lands. In production, you'd filter by label, by sender, or by a specific mailing address. For a live demo, the `[DEMO]` subject prefix is the safest filter."
 
-Test with these queries, one at a time:
+#### Step C: Add the `Ask Gemini` step (5 min) — the star of the demo
 
-**Test 1 — Basic FAQ lookup:**
-```
-When is the final exam?
-```
-Expected: The agent should return the date (15 May 2026), time, and venue from the FAQ.
+1. Under **Actions**, click **`Choose a step`**.
+2. In the "Add step" panel, click the top card: **`Ask Gemini`** (under "Write, reason, and transform content with AI").
+3. In the prompt field, type (or paste) the following. Where you see `{{email subject}}`, `{{email sender}}`, `{{email body}}`, use Workspace Studio's variable picker to insert the trigger's fields — don't type the `{{...}}` literally.
 
-**Test 2 — Schedule lookup:**
-```
-When is the next tutorial for Group A?
-```
-Expected: The agent should find the next tutorial date from the module schedule sheet.
+    ```
+    You are an email triage assistant for a Singapore Polytechnic lecturer.
 
-**Test 3 — Support question:**
-```
-I'm failing the module. What should I do?
-```
-Expected: The agent should reference the support options from the FAQ (consultation, Math Learning Centre, study groups).
+    Classify this email into exactly ONE of these categories:
+    - URGENT_STUDENT: a student needs help now (missed assessment,
+      struggling with material, extension request, personal difficulty)
+    - ADMIN_REQUEST: a routine admin task (forms, approvals, room bookings)
+    - NEWSLETTER: a mailing list, marketing, or promotional email
+    - OTHER: anything else, including positive messages and thank-yous
 
-**Test 4 — Boundary test (should be handled gracefully):**
-```
-Can you help me with my MA0001 Linear Algebra assignment?
-```
-Expected: The agent should politely decline — it only has ST0001 information.
+    Then extract:
+    - The sender's name
+    - A one-sentence summary of what they actually want
+    - Any dates or deadlines mentioned in the email
 
-**Test 5 — Grounding test (should not hallucinate):**
-```
-What's the lecturer's phone number?
-```
-Expected: The agent should say it doesn't have that information and suggest contacting the lecturer via email or Google Classroom.
+    Respond in EXACTLY this format, one field per line:
+    CATEGORY: <one of URGENT_STUDENT, ADMIN_REQUEST, NEWSLETTER, OTHER>
+    SENDER: <name>
+    SUMMARY: <one sentence>
+    DATES: <comma-separated dates, or the word "none">
 
-> "Notice how the agent handles questions outside its knowledge. It doesn't make things up — it tells the student to check with the lecturer. That's the power of good instructions and grounded data sources."
+    EMAIL TO TRIAGE:
+    Subject: {{email subject}}
+    From: {{email sender}}
+    Body: {{email body}}
+    ```
 
-#### Step 5: Iterate on the agent (3 min)
+4. **Narration while typing** (slow down for this — it's the most important teaching moment in the whole session):
 
-**Goal:** Show participants that agents are refinable, not one-shot builds.
+> "Notice the structure of this prompt. I'm telling Gemini what *role* it's playing — an email triage assistant for a lecturer."
+>
+> "I'm giving it a closed set of categories — four, and only four. Gemini classifies much better when the options are explicit and limited. 'Tell me what this email is about' is a terrible prompt. 'Pick one of these four' is a great one."
+>
+> "I'm asking for a rigid output format. Every field on its own line. Exact labels. That's because the next step has to *read* this output programmatically — if the format drifts, the next step breaks."
+>
+> "This is exactly the same prompt-engineering discipline from Session 2 Gems and Session 3 `=AI()` cells — same skill, different surface."
 
-Pick one thing that could be better from your test queries. Common examples:
+#### Step D: Add the `Check if` branching (2 min)
 
-- The agent was too chatty → add "Keep answers to 2-3 sentences"
-- The agent didn't cite the source → add "Always mention which document the answer came from"
-- The agent gave advice beyond the FAQ → strengthen the constraint
+1. Under Actions, click **`Choose a step`** → scroll to **Tools** → select **`Check if`**.
+2. Configure the condition: *previous step output contains `CATEGORY: URGENT_STUDENT`*.
+   - If the UI exposes structured field matching, compare the `CATEGORY` field to `URGENT_STUDENT` directly.
+   - If only substring matching is available, use the exact substring `CATEGORY: URGENT_STUDENT`.
 
-**Example edit:**
+> "This is a no-code `if` statement. The next two actions only run when Gemini's classification is urgent — everything else silently falls off the end of the flow. No Chat pings. No labels. Just dropped."
 
-1. Click the agent name → **Edit**
-2. Add this to the instructions:
+#### Step E: Add `Notify me in Chat` (2 min)
 
-```
-## Additional Requirements
+1. Under Actions (inside the `Check if` then branch), click **`Choose a step`** → scroll to **Chat** → select **`Notify me in Chat`**.
+2. Set the target to your pre-prepared Chat space (DM-with-self or the dedicated `Workshop Test` space from pre-session setup).
+3. For the message body, use the variable picker to insert the `SENDER`, `SUMMARY`, `DATES`, and `email subject` fields where shown:
 
-- When answering, always cite which source you used (e.g., "According to the ST0001 FAQ..." or "Based on the Module Schedule...")
-- If a question can't be answered from your data sources, end with: "Please contact the lecturer at tan_wei_lin@sp.edu.sg or post in Google Classroom for a definitive answer."
-```
+    ```
+    🚨 Urgent student email
 
-3. Save and re-test with one of the previous queries
+    From: {{Ask Gemini output: SENDER}}
+    Summary: {{Ask Gemini output: SUMMARY}}
+    Dates: {{Ask Gemini output: DATES}}
 
-> "Look at the difference. Now every answer is traceable back to a source. And when the agent doesn't know something, it gives the student a clear next step instead of leaving them stuck. Agents get better the more you use them."
+    Original subject: {{email subject}}
+    ```
 
-#### Step 6: Share the agent (2 min)
+#### Step F: Add `Add labels` (1 min)
 
-1. Click the **Share** button (or the share icon)
-2. Add the email address of a colleague (or a shared workshop account) to grant access
-3. Show that shared users can chat with the agent but cannot see the instructions or data sources
+1. Under Actions, click **`Choose a step`** → scroll to **Gmail** → select **`Add labels`**.
+2. **Target email:** the email from the trigger (should be auto-selected)
+3. **Label:** `Urgent-Student` (the label you created in pre-session setup)
 
-> "You've just built a student-facing assistant in about 12 minutes. No code, no infrastructure, no APIs. Students can access it through Gemini, and you can update it any time by editing the FAQ document."
+#### Step G: Save and enable (30 sec)
 
-**Side-by-side comparison (1 min):**
-
-Recall the questions you asked at the start of the session ("When is the final exam?"). Compare:
-- Plain Gemini → generic, potentially wrong, no citations
-- Stats Module Assistant → specific, grounded in your docs, cites sources, handles boundaries gracefully
-
-> "Same underlying model. Same interface. But one is useful for students, and one isn't. The difference is grounding."
+1. Click **Save** (top-right).
+2. Toggle the flow to **Enabled** (if there is an enable switch).
 
 ---
 
-### Transition to Hands-On Exercise (2 min)
+### Trigger the demo live (2 min)
 
-> "Now it's your turn. You'll build your own agent — and you can choose a scenario that fits your role. The key steps are the same: name it, write clear instructions, connect data sources, and test."
+1. Pull out your phone. Open the workshop email account.
+2. Compose a new message to yourself with:
+   - **Subject:** `[DEMO] Can I get an extension on CA Test 2?`
+   - **Body:** paste Test Email #1 from `sample-documents/test-emails.md`
+3. Send.
+4. Switch the shared screen to Google Chat. Wait 10–30 seconds.
+5. **The flow fires.** A `🚨 Urgent student email` notification appears with the extracted sender, summary, and dates.
+6. Switch to Gmail. Show the email with the `Urgent-Student` label applied.
+
+**Payoff line:**
+
+> "That's it. Five steps, one prompt, one filter. No code, no API keys, no deployment. And it composes AI reasoning *into* the automation — not just around it. The `Ask Gemini` step is where the judgement lives. The rest is plumbing."
+
+---
+
+### Iterate on the Flow (2 min)
+
+**Goal:** Show participants that flows are refinable, just like Gems.
+
+1. Frame it: *"Let me show you how you'd tighten this if Gemini misclassified something."*
+2. Send the second test email (Test Email #2 — "Positive feedback"):
+   - **Subject:** `[DEMO] Thanks for the tutorial yesterday!`
+   - **Body:** paste Test Email #2 from `sample-documents/test-emails.md`
+3. **Expected behavior:** Gemini classifies as `OTHER` → `Check if` does not fire → no Chat ping. Show this as correct. If Workspace Studio has an execution history tab, open it to show the flow ran but the branch was skipped.
+4. **Fallback if Gemini misclassifies** (as `URGENT_STUDENT`):
+   - Open the `Ask Gemini` step
+   - Add this line to the prompt: *"Positive feedback and thank-you messages are OTHER, not URGENT_STUDENT — even when they mention a student's name."*
+   - Save
+   - Resend the test email
+   - Show the corrected classification
+5. Teaching point:
+
+> "You iterate on the prompt, not on code. There's no JavaScript to debug, no try/catch to rewrite. You talk to Gemini, adjust its instructions, save, and try again. Same conversational refinement loop as Gems — just embedded inside an automation."
+
+---
+
+### Transition to Hands-On (2 min)
+
+Recap the pattern:
+
+> "You've seen one flow — but the pattern generalises:
+>
+> 1. **A trigger** — something that happens (email, schedule, form submit, file edit)
+> 2. **An AI step** — where judgement happens (`Ask Gemini` with a custom prompt, or a pre-built AI skill like `Recap`, `Extract`, `Summarize`, `Decide`)
+> 3. **Actions** — what the flow does next (Chat, Sheets, Tasks, Gmail, Docs)
+>
+> With 13 triggers and 20+ actions, you can build an enormous variety of automations from that pattern. Now it's your turn."
 
 ---
 
@@ -258,89 +271,179 @@ Recall the questions you asked at the start of the session ("When is the final e
 
 ### Instructions for Participants
 
-**Goal:** Build a Workspace Studio Agent that answers questions grounded in your own data sources.
-
-**Steps:**
-
-1. **Choose a scenario** (see options below) or create your own
-2. **Create a new agent** in Gemini → Gems and agents → Create agent
-3. **Write instructions** — define the agent's role, constraints, and tone
-4. **Add data sources** — connect at least one Google Doc or Sheet from Drive
-5. **Test with 3–5 queries** — include at least one boundary test (a question the agent shouldn't answer)
-6. **Share** (optional) — share with a neighbour and have them test it
+Choose **one** scenario based on your comfort level. All three build a flow that composes an AI step with at least one action. Success means your flow fires (either on trigger or via test run) and produces visible output somewhere (Chat, Gmail, Tasks, or a Sheet).
 
 ---
 
-### Scenario Options
+### Scenario A — Beginner: Morning Inbox Digest
 
-#### Option A: Module FAQ Assistant (Recommended for first-timers)
+**Recommended for:** anyone who has never used a no-code automation builder before.
 
-Build the same "Stats Module Assistant" from the demo, using the pre-prepared FAQ document and schedule sheet. This lets you focus on writing good instructions and testing.
+**Goal:** Get a daily summary of your unread emails posted to Google Chat at 8 AM, without opening Gmail.
 
-**Starter instructions:**
+**Flow shape:**
+
 ```
-You are a helpful assistant for students in ST0001 Statistics I.
-Answer questions about grading, schedule, exams, and support options.
-Only use information from the FAQ and schedule documents.
-If you don't know, say so and suggest contacting the lecturer.
-Be friendly and concise.
-```
-
-#### Option B: Administrative Assistant
-
-Build an agent that helps with a common administrative task for your department.
-
-**Example scenarios:**
-- **Room Booking Assistant** — grounded in a room availability spreadsheet; answers questions about available rooms, capacity, and booking procedures
-- **Event Planning Assistant** — grounded in an events document; answers questions about upcoming department events, deadlines, and logistics
-- **HR Policy Assistant** — grounded in a staff handbook doc; answers questions about leave policies, claims procedures, and contact details
-
-**Starter instructions:**
-```
-You are an administrative assistant for the School of Mathematical Sciences and Analytics.
-Answer questions about [topic] based on the provided documents.
-Be professional, accurate, and helpful.
-If the information is not in your data sources, say so and direct the user to [relevant contact].
+On a schedule (daily, 8:00 AM)
+    ↓
+Recap unread emails       (pre-built AI skill)
+    ↓
+Notify me in Chat         (post the recap)
 ```
 
-#### Option C: Teaching Content Assistant (For advanced participants)
+**Steps:**
 
-Build an agent grounded in actual teaching materials — lecture notes, tutorial worksheets, or past papers.
+1. Open `studio.workspace.google.com` → click **`+`** → name: `Morning Inbox Digest`
+2. **Starter:** `On a schedule` → daily at 8:00 AM. *For the workshop, temporarily set the interval to the smallest supported unit (e.g., every 15 min) so you can verify without waiting a whole day. Remember to change it back to daily before leaving, or the flow will keep pinging you.*
+3. **Add step:** `Recap unread emails` (under AI skills) — accept the default configuration
+4. **Add step:** `Notify me in Chat` → target your own DM space, body:
 
-**Example scenarios:**
-- **Revision Coach** — grounded in lecture notes; helps students review key concepts by answering questions and providing explanations
-- **Tutorial Helper** — grounded in tutorial worksheets; guides students through problems step-by-step without giving direct answers
+    ```
+    Good morning. Here's your inbox recap: {{recap output}}
+    ```
 
-**Starter instructions:**
+5. Save + Enable
+6. Wait for the schedule to fire, or use a test-run button if Workspace Studio exposes one
+
+**Why it's beginner-friendly:** Uses a canned AI skill — no prompt writing. Only three nodes.
+
+**Success criteria:** A Chat message appears containing a summary of your unread emails, grouped by priority.
+
+---
+
+### Scenario B — Intermediate: Email-to-Task Extractor
+
+**Recommended for:** participants comfortable writing a short Gemini prompt from scratch.
+
+**Goal:** When an email arrives mentioning a deadline or action item, automatically create a Google Task.
+
+**Flow shape:**
+
 ```
-You are a revision coach for ST0001 Statistics I.
-Help students understand concepts from the lecture notes.
-When a student asks about a concept, explain it clearly with an example.
-Do not solve homework or tutorial questions directly — guide the student to the answer.
-Always cite which lecture or week the concept is from.
+When I get an email  (filtered: label is "inbox")
+    ↓
+Ask Gemini            (extract action items and deadlines)
+    ↓
+Check if              (did Gemini find an action item?)
+    ↓
+Create a task         (title + due date from Gemini output)
+    ↓
+Notify me in Chat     (confirmation)
 ```
+
+**Starter Ask Gemini prompt:**
+
+```
+Look at this email and decide whether it contains an action item
+the recipient needs to do, along with a deadline.
+
+Respond in this exact format:
+HAS_ACTION: YES or NO
+ACTION: <one-sentence task description, or "none">
+DEADLINE: <date in YYYY-MM-DD format, or "none">
+
+Email:
+Subject: {{email subject}}
+Body: {{email body}}
+```
+
+**Configuration:**
+
+- **Check if** condition: output contains `HAS_ACTION: YES`
+- **Create a task:** title from the `ACTION` field, due date from the `DEADLINE` field
+- **Notify me in Chat:**
+
+    ```
+    ✅ Task created from email: {{ACTION}} (due {{DEADLINE}})
+    ```
+
+**Success criteria:** Send yourself an email with a subject like "Please submit grades by Friday 2026-05-15" — a Google Task appears with that title and due date, and a confirmation pings in Chat. (Test Email #5 in `sample-documents/test-emails.md` is a ready-made test case.)
+
+---
+
+### Scenario C — Advanced: Student Query Router
+
+**Recommended for:** participants who finished the demo early or want a real student-support workflow.
+
+**Goal:** When a student emails you (identified by subject prefix), classify the query type using Gemini and route it differently depending on the category. Log every query to a tracking sheet.
+
+**Flow shape:**
+
+```
+When I get an email  (filtered: subject contains "[ST0001]")
+    ↓
+Ask Gemini            (classify: content-question / admin-question /
+                       urgent / positive-feedback)
+    ↓
+Check if              (category == "urgent") → Notify + Draft reply
+    ↓
+Check if              (category == "content-question") → Notify teaching space
+    ↓
+Add a row             (log query type and timestamp to tracking sheet)
+```
+
+**Starter Ask Gemini prompt:**
+
+```
+Classify this email from a student into exactly one category:
+- urgent: missed assessment, extension request, personal difficulty
+- content-question: asking about module material or exam topics
+- admin-question: asking about schedule, venue, policies
+- positive-feedback: thanks or positive comments
+
+Respond with only one word: urgent, content-question,
+admin-question, or positive-feedback.
+
+Email:
+Subject: {{email subject}}
+Body: {{email body}}
+```
+
+**Configuration:**
+
+- Chain `Check if` nodes (or use branching if supported) for at least two of the four categories with different `Notify me in Chat` + `Draft a reply` actions
+- Create a tracking Google Sheet in advance with columns: `Timestamp | Sender | Category | Subject`
+- Final step: `Add a row` to the tracking sheet with the classification result
+
+**Success criteria:** Send yourself 2–3 test emails with `[ST0001]` in the subject and different query types. Each lands in the correct Chat space, gets a draft reply where applicable, and appears as a new row in the tracking sheet.
+
+---
+
+### Fallback — Bring Your Own Use Case
+
+If none of the scenarios match a real workflow you have in mind, freeform-describe your use case in the **`Describe a task for Gemini`** field on the Workspace Studio landing page and see what starter flow it proposes. The instructor will circulate to help.
 
 ---
 
 ### Instructor Notes for Exercise Facilitation
 
-- **Most common issue:** Participants can't find the agent creation option. Verify admin has enabled it. If not available, have participants pair up with someone who has access.
-- **Second most common issue:** Data source connection fails. Ensure the Drive documents are in a location the participant's account can access (shared folder or their own Drive).
-- **If someone finishes early:** Challenge them to add more data sources, refine the instructions to handle edge cases better, or try building a second agent for a different scenario.
-- **Good test queries to suggest:**
-  - A question the agent should answer confidently
-  - A question that's close to the agent's domain but slightly outside it
-  - A question that requires combining information from two data sources
-  - A trick question that might cause hallucination (e.g., asking about something not in the docs)
+- **Most common issue:** Trigger filter is too broad — the flow fires on every email during the workshop and ping-storms the participant. Show them how to narrow the filter (subject contains, specific label, specific sender) or temporarily disable the flow.
+- **Second most common:** `Ask Gemini` output format drifts between runs → the downstream `Check if` stops matching. Fix: loosen the condition to substring matching, or tighten the prompt with "respond with ONLY the word X".
+- **Third most common:** Participant can't find where previous step variables are exposed in the next step's configuration. UI-specific muscle — demonstrate the variable picker on a volunteer's screen if multiple people get stuck.
+- **Running out of time:** Anyone still building at the 15-min mark should test-trigger their flow even if incomplete. *A* working flow beats a perfect-but-untested one.
+- **Finished early:** Challenge them to add a second branch to their `Check if`, or try the pre-built AI skills (`Extract`, `Decide`, `Summarize`) as alternative brains.
 
 ---
 
 ## Key Takeaways to Reinforce
 
-After the exercise, briefly recap before the break:
+After the exercise, briefly recap before moving to Session 8:
 
-1. **Agents = Gems + actions + live data** — the same instruction-writing skills from Session 2 apply here
-2. **Grounding prevents hallucination** — agents answer from your documents, not from training data
-3. **Instructions are your control mechanism** — clear constraints produce reliable behaviour
-4. **No-code doesn't mean no-effort** — the quality of your instructions and data sources determines the agent's quality
-5. **This connects forward** — in the next sessions, you'll see how the same concepts (system instructions, grounding, chat memory) work in Vertex AI Studio and the Gemini API
+1. **Flows = no-code automation with AI as a first-class step** — not just a glued-together chain of app calls, but a pipeline where Gemini can do real reasoning inline
+2. **Three-part pattern** — Trigger → AI step → Action(s). This pattern generalises to dozens of real workflows.
+3. **Prompt engineering still matters** — the `Ask Gemini` step is only as good as the prompt you write for it. Same discipline as Session 2 (Gems) and Session 3 (`=AI()` cells).
+4. **The no-code counterpart to Session 6** — code-based automation (Apps Script) and no-code automation (Flows) are two tools for the same job. Code wins on complex logic and full control. No-code wins on speed, visibility, and AI composition.
+5. **Bridge to Session 8** — *"The `Ask Gemini` step you just used is a black box here — Google owns the prompt construction, the model choice, the parameters. In the next sessions, you'll take that black box apart and control the prompt, the model, the grounding, and the parameters yourself."*
+
+---
+
+## File Inventory
+
+```
+session-07-workspace-flows/
+├── demo-guide.md                    ← This file (instructor guide)
+└── sample-documents/
+    └── test-emails.md               ← Test email templates for demo and exercises
+```
+
+**Important:** The instructor flow (`Intelligent Inbox Triage`) is built live during the demo. A pre-built backup copy (`Intelligent Inbox Triage (backup)`) should exist in the instructor's Workspace Studio account as a fallback if the live build encounters issues during delivery.
